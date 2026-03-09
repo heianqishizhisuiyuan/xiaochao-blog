@@ -1,5 +1,40 @@
-# Vue 3 + TypeScript + Vite
+# XiaoChao Blog
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+一个基于 **Vue 3 + TypeScript + Vite + Element Plus** 的品牌化博客前端原型。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## 当前进度
+
+- 已完成炫酷首页首版
+- 已完成基础站点路由：首页 / 文章列表 / 文章详情 / 归档 / 关于
+- 已补齐公共头部、页脚、侧边栏与文章卡片骨架
+- 已内置一组静态内容数据，便于继续做 UI、交互与信息架构验证
+
+## 技术栈
+
+- Vue 3
+- TypeScript
+- Vite
+- Vue Router
+- Pinia
+- Element Plus
+
+## 本地开发
+
+```bash
+npm install
+npm run dev
+```
+
+## 构建
+
+```bash
+npm run build
+npm run preview
+```
+
+## 下一步建议
+
+1. 接入真实文章源（Markdown / CMS / API）
+2. 增加搜索、标签筛选、分页
+3. 补 404、SEO、RSS、sitemap
+4. 规划后台内容管理入口
