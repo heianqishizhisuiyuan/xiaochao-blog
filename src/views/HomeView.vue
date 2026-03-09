@@ -1,34 +1,13 @@
 <script setup lang="ts">
-const featuredPosts = [
-  { title: '做一个有品牌感的博客首页', tag: 'Design System', desc: '用首屏叙事、卡片层次和动效，把博客从模板站拉成作品站。', date: '2026-03-08' },
-  { title: 'Vue3 + Element Plus 如何做出高级感', tag: 'Frontend', desc: '不是堆组件，而是重做栅格、色板、间距和信息密度。', date: '2026-03-07' },
-  { title: '从内容页到商业化页面的演进', tag: 'Product', desc: '博客不是只放文章，后面会自然长出订阅、项目页、服务页。', date: '2026-03-06' }
-]
-
-const featureCards = [
-  { title: '内容品牌化', desc: '首页不只展示文章，还展示作者、项目、能力与产品感。' },
-  { title: '炫酷但克制', desc: '用渐变、光晕、毛玻璃和卡片悬浮做高级感，不做廉价特效。' },
-  { title: '可扩展架构', desc: '先静态博客，后续平滑接文章管理、订阅、评论和会员能力。' }
-]
+import PostCard from '../components/PostCard.vue'
+import SiteFooter from '../components/SiteFooter.vue'
+import SiteHeader from '../components/SiteHeader.vue'
+import { categories, featuredPosts, siteMeta } from '../data/content'
 </script>
 
 <template>
   <div class="page-shell aurora-bg">
-    <header class="topbar glass-panel">
-      <div class="brand">
-        <div class="brand-mark">X</div>
-        <div>
-          <div class="brand-title">XiaoChao Blog</div>
-          <div class="brand-sub">Future-facing content & product journal</div>
-        </div>
-      </div>
-      <nav class="nav-links">
-        <RouterLink to="/">首页</RouterLink>
-        <RouterLink to="/posts">文章</RouterLink>
-        <RouterLink to="/archive">归档</RouterLink>
-        <RouterLink to="/about">关于</RouterLink>
-      </nav>
-    </header>
+    <SiteHeader />
 
     <main>
       <section class="hero-section">
@@ -36,16 +15,16 @@ const featureCards = [
           <div class="hero-badge">BLOG SYSTEM V1 / VUE3 / TS / ELEMENT PLUS</div>
           <h1>把博客做成一个有气质、能持续进化的作品站。</h1>
           <p>
-            这不是一个普通的文章容器，而是一套兼顾内容表达、作者品牌、项目展示与后续商业化扩展的博客系统。
+            {{ siteMeta.description }} 这不是普通文章容器，而是一套兼顾内容表达、作者品牌、项目展示与后续商业化扩展的博客系统。
           </p>
           <div class="hero-actions">
-            <el-button type="primary" size="large" round>开始阅读</el-button>
-            <el-button plain size="large" round>查看项目</el-button>
+            <RouterLink to="/posts"><el-button type="primary" size="large" round>开始阅读</el-button></RouterLink>
+            <RouterLink to="/about"><el-button plain size="large" round>了解作者</el-button></RouterLink>
           </div>
           <div class="hero-stats">
-            <div><strong>12</strong><span>精选文章</span></div>
-            <div><strong>4</strong><span>主题栏目</span></div>
-            <div><strong>∞</strong><span>持续更新</span></div>
+            <div><strong>12</strong><span>精选文章目标池</span></div>
+            <div><strong>4</strong><span>内容模块</span></div>
+            <div><strong>∞</strong><span>持续进化</span></div>
           </div>
         </div>
         <div class="hero-visual glass-panel">
@@ -61,9 +40,9 @@ const featureCards = [
       </section>
 
       <section class="feature-grid">
-        <article v-for="item in featureCards" :key="item.title" class="glass-panel feature-card">
+        <article v-for="item in categories" :key="item.slug" class="glass-panel feature-card">
           <div class="feature-dot"></div>
-          <h3>{{ item.title }}</h3>
+          <h3>{{ item.name }}</h3>
           <p>{{ item.desc }}</p>
         </article>
       </section>
@@ -77,16 +56,10 @@ const featureCards = [
       </section>
 
       <section class="posts-grid">
-        <article v-for="post in featuredPosts" :key="post.title" class="glass-panel post-card">
-          <div class="post-meta">
-            <span>{{ post.tag }}</span>
-            <span>{{ post.date }}</span>
-          </div>
-          <h3>{{ post.title }}</h3>
-          <p>{{ post.desc }}</p>
-          <a href="#">阅读全文</a>
-        </article>
+        <PostCard v-for="post in featuredPosts" :key="post.slug" :post="post" />
       </section>
     </main>
+
+    <SiteFooter />
   </div>
 </template>
