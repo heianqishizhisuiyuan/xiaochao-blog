@@ -4,7 +4,14 @@ import PostCard from '../components/PostCard.vue'
 import SiteFooter from '../components/SiteFooter.vue'
 import SiteHeader from '../components/SiteHeader.vue'
 import SiteSidebar from '../components/SiteSidebar.vue'
+import { useSeo } from '../composables/useSeo'
 import { categories, posts } from '../data/content'
+
+useSeo({
+  title: '文章',
+  description: '浏览博客文章、按分类筛选，并快速查找感兴趣的内容。',
+  path: '/posts'
+})
 
 const keyword = ref('')
 const activeCategory = ref('All')
@@ -18,6 +25,10 @@ const filteredPosts = computed(() => {
     return byCategory && byKeyword
   })
 })
+
+const totalReadingMinutes = computed(() => {
+  return filteredPosts.value.reduce((sum, post) => sum + Number.parseInt(post.readingTime, 10), 0)
+})
 </script>
 
 <template>
@@ -26,11 +37,21 @@ const filteredPosts = computed(() => {
 
     <main class="content-layout">
       <section>
-        <div class="subpage-head compact">
+        <div class="subpage-head compact posts-head">
           <div>
             <div class="section-kicker">Posts</div>
             <h1>文章列表</h1>
-            <p>这一页已经从占位页升级为可浏览、可搜索、可按分类筛选的博客内容流骨架。</p>
+            <p>这里不想做成内容货架，更想让你快速判断：这篇现在值不值得点开，要花多少时间读完。</p>
+          </div>
+          <div class="posts-overview glass-panel">
+            <div>
+              <strong>{{ filteredPosts.length }}</strong>
+              <span>当前结果</span>
+            </div>
+            <div>
+              <strong>{{ totalReadingMinutes }}</strong>
+              <span>大概需要的阅读分钟</span>
+            </div>
           </div>
         </div>
 
@@ -62,8 +83,8 @@ const filteredPosts = computed(() => {
 
         <div v-else class="glass-panel empty-state">
           <div class="section-kicker">No Results</div>
-          <h3>没有匹配内容</h3>
-          <p>可以试试换个关键词，或者切回“全部”分类。</p>
+          <h3>这里暂时没有匹配内容</h3>
+          <p>换个关键词试试，或者先回到“全部”，慢慢翻也行。</p>
         </div>
       </section>
 

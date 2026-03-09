@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { useSeo } from '../composables/useSeo'
+
+useSeo({
+  title: '页面不存在',
+  description: '你访问的页面不存在，返回首页继续浏览。',
+  path: '/404'
+})
+</script>
+
 <template>
   <div class="page-shell aurora-bg">
     <main class="subpage-wrap">

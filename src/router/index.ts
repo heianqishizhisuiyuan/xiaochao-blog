@@ -8,6 +8,8 @@ const router = createRouter({
     { path: '/posts/:slug', name: 'post-detail', component: () => import('../views/PostDetailView.vue') },
     { path: '/about', name: 'about', component: () => import('../views/AboutView.vue') },
     { path: '/archive', name: 'archive', component: () => import('../views/ArchiveView.vue') },
+    { path: '/notes', name: 'notes', component: () => import('../views/NotesView.vue') },
+    { path: '/notes/:slug', name: 'note-detail', component: () => import('../views/NoteDetailView.vue') },
     { path: '/:pathMatch(.*)*', name: 'not-found', component: () => import('../views/NotFoundView.vue') }
   ],
   scrollBehavior() {

@@ -4,13 +4,43 @@ import { useRoute } from 'vue-router'
 import SiteFooter from '../components/SiteFooter.vue'
 import SiteHeader from '../components/SiteHeader.vue'
 import SiteSidebar from '../components/SiteSidebar.vue'
+import { useSeo } from '../composables/useSeo'
 import { posts } from '../data/content'
 
 const route = useRoute()
 
 const post = computed(() => posts.find((item) => item.slug === route.params.slug))
-const relatedPosts = computed(() => posts.filter((item) => item.slug !== route.params.slug).slice(0, 3))
-const toc = computed(() => post.value?.content.map((_, index) => `内容段落 ${index + 1}`) ?? [])
+const currentIndex = computed(() => posts.findIndex((item) => item.slug === route.params.slug))
+const previousPost = computed(() => {
+  const index = currentIndex.value
+  return index >= 0 ? posts[index + 1] ?? null : null
+})
+const nextPost = computed(() => {
+  const index = currentIndex.value
+  return index > 0 ? posts[index - 1] ?? null : null
+})
+const relatedPosts = computed(() => {
+  if (!post.value) return []
+
+  return posts
+    .filter((item) => item.slug !== post.value?.slug)
+    .map((item) => {
+      const sameCategory = item.category === post.value?.category ? 2 : 0
+      const sharedTags = item.tags.filter((tag) => post.value?.tags.includes(tag)).length
+      return { item, score: sameCategory + sharedTags }
+    })
+    .sort((a, b) => b.score - a.score || b.item.date.localeCompare(a.item.date))
+    .slice(0, 3)
+    .map(({ item }) => item)
+})
+const toc = computed(() => post.value?.sections ?? [])
+
+useSeo({
+  title: computed(() => post.value?.title ?? '文章不存在'),
+  description: computed(() => post.value?.summary ?? '该文章不存在或已被移除。'),
+  path: computed(() => `/posts/${String(route.params.slug ?? '')}`),
+  type: 'article'
+})
 </script>
 
 <template>
@@ -18,11 +48,18 @@ const toc = computed(() => post.value?.content.map((_, index) => `内容段落 $
     <SiteHeader />
 
     <main v-if="post" class="content-layout detail-layout">
-      <article class="glass-panel article-shell">
-        <div class="article-meta-top">
-          <span>{{ post.category }}</span>
-          <span>{{ post.date }} · {{ post.readingTime }}</span>
+      <article class="glass-panel article-shell reading-shell">
+        <div class="article-meta-top article-meta-grid">
+          <div class="article-meta-primary">
+            <span>{{ post.category }}</span>
+            <span>{{ post.date }}</span>
+          </div>
+          <div class="article-meta-primary muted">
+            <span>{{ post.readingTime }}</span>
+            <span>{{ post.wordCount }} 字</span>
+          </div>
         </div>
+
         <h1>{{ post.title }}</h1>
         <p class="article-summary">{{ post.summary }}</p>
 
@@ -30,31 +67,57 @@ const toc = computed(() => post.value?.content.map((_, index) => `内容段落 $
           <span v-for="tag in post.tags" :key="tag" class="tag-chip small">{{ tag }}</span>
         </div>
 
-        <section class="toc-box">
-          <div class="section-kicker">TOC</div>
-          <div class="toc-list">
-            <a v-for="(item, index) in toc" :key="item" :href="`#section-${index + 1}`">{{ item }}</a>
+        <section v-if="toc.length > 1" class="toc-box compact-reading-box">
+          <div class="section-kicker">目录</div>
+          <div class="toc-list numbered-toc">
+            <a v-for="(item, index) in toc" :key="item.id" :href="`#${item.id}`">
+              <span class="toc-index">{{ index + 1 }}</span>
+              <span>{{ item.title }}</span>
+            </a>
           </div>
         </section>
 
-        <div class="article-body">
-          <section
-            v-for="(paragraph, index) in post.content"
-            :id="`section-${index + 1}`"
-            :key="`${post.slug}-${index}`"
-            class="article-section"
-          >
-            <h2>内容段落 {{ index + 1 }}</h2>
-            <p>{{ paragraph }}</p>
+        <div class="article-body reading-body">
+          <section v-for="section in post.sections" :id="section.id" :key="section.id" class="article-section">
+            <h2>{{ section.title }}</h2>
+            <p v-for="(paragraph, index) in section.paragraphs" :key="`${section.id}-${index}`">
+              {{ paragraph }}
+            </p>
           </section>
         </div>
 
+        <section class="article-nav compact-reading-box">
+          <div class="section-kicker">继续阅读</div>
+          <div class="article-nav-grid">
+            <RouterLink v-if="previousPost" :to="`/posts/${previousPost.slug}`" class="article-nav-item">
+              <span class="article-nav-label">上一篇</span>
+              <strong>{{ previousPost.title }}</strong>
+            </RouterLink>
+            <div v-else class="article-nav-item is-empty">
+              <span class="article-nav-label">上一篇</span>
+              <strong>已经是最早的一篇</strong>
+            </div>
+
+            <RouterLink v-if="nextPost" :to="`/posts/${nextPost.slug}`" class="article-nav-item">
+              <span class="article-nav-label">下一篇</span>
+              <strong>{{ nextPost.title }}</strong>
+            </RouterLink>
+            <div v-else class="article-nav-item is-empty">
+              <span class="article-nav-label">下一篇</span>
+              <strong>已经是最新的一篇</strong>
+            </div>
+          </div>
+        </section>
+
         <section class="article-related">
-          <div class="section-kicker">Continue Reading</div>
+          <div class="section-kicker">相关文章</div>
           <div class="related-list">
             <RouterLink v-for="item in relatedPosts" :key="item.slug" :to="`/posts/${item.slug}`" class="related-item">
-              <strong>{{ item.title }}</strong>
-              <span>{{ item.date }}</span>
+              <div>
+                <strong>{{ item.title }}</strong>
+                <p>{{ item.summary }}</p>
+              </div>
+              <span>{{ item.date }} · {{ item.readingTime }}</span>
             </RouterLink>
           </div>
         </section>

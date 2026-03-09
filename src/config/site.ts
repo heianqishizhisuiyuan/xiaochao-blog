@@ -1,6 +1,6 @@
 export const siteConfig = {
-  url: 'https://example.com',
-  name: 'XiaoChao Blog',
-  title: 'XiaoChao Blog',
-  description: '一个兼顾技术、产品与个人表达的品牌化博客系统。'
+  url: 'https://heianqishizhisuiyuan.duckdns.org',
+  name: '小超博客',
+  title: '小超博客',
+  description: '一个认真记录技术、产品、工作流和日常思考的个人博客。'
 }
