@@ -1286,6 +1286,12 @@ a { color: inherit; text-decoration: none; }
     grid-template-columns: 1fr;
   }
 
+  /* On narrow screens, hide the right sidebar instead of stacking it at the bottom */
+  .editorial-sidebar-stack,
+  .sidebar-nav-layout {
+    display: none;
+  }
+
   .topbar,
   .subpage-head,
   .site-footer,
