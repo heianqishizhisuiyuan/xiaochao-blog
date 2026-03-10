@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页设计稿 · 中文个人写作博客</title>
+    <style>
+      :root {
+        --bg: #f5f1e8;
+        --paper: #fbf8f2;
+        --ink: #1f1d1a;
+        --muted: #6f685f;
+        --line: #ddd3c4;
+        --accent: #7a4b2a;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Noto Serif SC", "Songti SC", "PingFang SC", serif;
+        background: linear-gradient(180deg, #efe7dc 0%, #f7f3eb 100%);
+        color: var(--ink);
+      }
+      .shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 24px 64px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 16px 0 26px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand-title {
+        font-size: 1.55rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+      .brand-sub {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.8;
+        max-width: 32rem;
+      }
+      .nav {
+        display: flex;
+        gap: 18px;
+        font-size: 0.95rem;
+        color: var(--muted);
+        padding-top: 4px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 48px;
+        padding: 44px 0 40px;
+        border-bottom: 1px solid var(--line);
+      }
+      .eyebrow {
+        display: inline-block;
+        color: var(--accent);
+        font-size: 0.82rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      h1 {
+        font-size: clamp(2.3rem, 4vw, 4rem);
+        line-height: 1.15;
+        margin: 16px 0 18px;
+        font-weight: 700;
+      }
+      .hero p {
+        font-size: 1.04rem;
+        line-height: 1.95;
+        color: #403a33;
+        max-width: 44rem;
+      }
+      .hero-actions {
+        margin-top: 28px;
+        display: flex;
+        gap: 14px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 0.95rem;
+      }
+      .btn.primary {
+        background: #241f1a;
+        color: #f8f4ec;
+        border-color: #241f1a;
+      }
+      .hero-side {
+        background: rgba(255,255,255,0.45);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 24px 22px;
+      }
+      .hero-side h3 {
+        margin: 10px 0 16px;
+        font-size: 1.05rem;
+      }
+      .hero-side ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .hero-side li {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.96rem;
+        line-height: 1.85;
+        color: #3d3832;
+      }
+      .hero-side li:last-child { border-bottom: 0; }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 44px;
+        padding-top: 34px;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+      .section-head h2 {
+        margin: 10px 0 0;
+        font-size: 1.85rem;
+      }
+      .section-link {
+        color: var(--accent);
+        font-size: 0.92rem;
+      }
+      .post-list {
+        display: grid;
+        gap: 18px;
+      }
+      .post-item {
+        background: rgba(255,255,255,0.5);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px 22px 20px;
+      }
+      .post-meta {
+        color: var(--muted);
+        font-size: 0.84rem;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .post-item h3 {
+        margin: 12px 0 10px;
+        font-size: 1.36rem;
+      }
+      .post-item p {
+        margin: 0;
+        color: #403932;
+        line-height: 1.9;
+      }
+      .categories {
+        margin-top: 34px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .cat {
+        padding: 18px;
+        border-top: 2px solid #c8b59d;
+        background: rgba(255,255,255,0.35);
+      }
+      .cat h4 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+      .cat p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 0.92rem;
+      }
+      .sidebar section {
+        border-top: 1px solid var(--line);
+        padding: 0 0 24px;
+        margin-bottom: 24px;
+      }
+      .sidebar section:first-child { padding-top: 0; border-top: 0; }
+      .sidebar h3 {
+        margin: 14px 0 10px;
+        font-size: 1.05rem;
+      }
+      .sidebar p, .sidebar li {
+        color: var(--muted);
+        line-height: 1.9;
+        font-size: 0.94rem;
+      }
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .sidebar li {
+        padding: 10px 0;
+        border-bottom: 1px dashed #ddd3c4;
+      }
+      .sidebar li:last-child { border-bottom: 0; }
+      @media (max-width: 980px) {
+        .hero, .layout, .categories { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <div class="brand-title">小超博客</div>
+          <div class="brand-sub">一个认真写技术、产品、工作流与阶段性判断的中文个人博客。不是企业官网，也不是资讯门户，就是长期写作的地方。</div>
+        </div>
+        <nav class="nav">
+          <span>首页</span>
+          <span>文章</span>
+          <span>归档</span>
+          <span>关于</span>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div>
+          <div class="eyebrow">长期写作 / 个人主页</div>
+          <h1>这里主要放我持续写下来的文章，关于技术、产品、工作流，还有一些值得留下来的判断。</h1>
+          <p>
+            我希望这个博客读起来是清楚、克制、可信的。文章是主角，结构要顺手，更新要能看见，整体要像一个人长期写下来的东西，而不是包装过的展示页。
+          </p>
+          <div class="hero-actions">
+            <div class="btn primary">查看最近文章</div>
+            <div class="btn">关于这个博客</div>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="eyebrow">写作重点</div>
+          <h3>最近主要在写</h3>
+          <ul>
+            <li>个人博客的结构整理与长期维护方式</li>
+            <li>AI 协作工作流到底哪里真的有用</li>
+            <li>页面体验、阅读节奏与内容组织</li>
+          </ul>
+        </aside>
+      </section>
+
+      <div class="layout">
+        <main>
+          <section>
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">最近文章</div>
+                <h2>最近写的内容</h2>
+              </div>
+              <div class="section-link">查看全部文章 →</div>
+            </div>
+
+            <div class="post-list">
+              <article class="post-item">
+                <div class="post-meta"><span>2026-03-09</span><span>工作流与系统</span><span>6 分钟</span></div>
+                <h3>AI 协作夜班：把博客从占位页推进到作品站</h3>
+                <p>记一次真实夜班：怎么把一个还像占位页的博客，慢慢推向更能长期写下去的个人站。</p>
+              </article>
+
+              <article class="post-item">
+                <div class="post-meta"><span>2026-03-09</span><span>产品与内容</span><span>5 分钟</span></div>
+                <h3>Vue 博客的信息架构，决定了后面能不能越做越轻松</h3>
+                <p>真正拖慢博客的，通常不是样式，而是内容结构先天混乱。把信息架构理顺，后面会轻松很多。</p>
+              </article>
+
+              <article class="post-item">
+                <div class="post-meta"><span>2026-03-08</span><span>产品与内容</span><span>4 分钟</span></div>
+                <h3>写少一点，但写得更值钱</h3>
+                <p>比起更快更新，我更在意每篇东西是不是值得留下来、以后还愿意再回头看。</p>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <div class="section-head" style="margin-top:34px;">
+              <div>
+                <div class="eyebrow">写作方向</div>
+                <h2>我主要写什么</h2>
+              </div>
+            </div>
+
+            <div class="categories">
+              <article class="cat">
+                <h4>前端与交互</h4>
+                <p>页面结构、阅读体验、交互节奏，还有那些真正影响可用性的细节。</p>
+              </article>
+              <article class="cat">
+                <h4>产品与内容</h4>
+                <p>内容结构、信息架构、站点组织，以及为什么一个博客要这样长出来。</p>
+              </article>
+              <article class="cat">
+                <h4>工作流与系统</h4>
+                <p>AI 协作、持续维护、流程沉淀和那些值得复盘下来的工作方式。</p>
+              </article>
+            </div>
+          </section>
+        </main>
+
+        <aside class="sidebar">
+          <section>
+            <div class="eyebrow">关于这里</div>
+            <h3>这不是展示页，是长期写作的地方</h3>
+            <p>我想把技术、产品和工作中的阶段性判断慢慢写下来，让这个站越来越像一个稳定的作者主页。</p>
+          </section>
+
+          <section>
+            <div class="eyebrow">最近更新</div>
+            <ul>
+              <li>AI 协作夜班：把博客从占位页推进到作品站</li>
+              <li>Vue 博客的信息架构，决定了后面能不能越做越轻松</li>
+              <li>写少一点，但写得更值钱</li>
+            </ul>
+          </section>
+
+          <section>
+            <div class="eyebrow">标签</div>
+            <p>信息架构 / 阅读体验 / 博客搭建 / 内容组织 / AI 协作 / 持续迭代</p>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

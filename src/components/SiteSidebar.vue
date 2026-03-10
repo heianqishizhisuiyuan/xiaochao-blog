@@ -1,30 +1,19 @@
 <script setup lang="ts">
-import { categories, popularTags, recentPosts, statusNoteMap } from '../data/content'
+import { popularTags, recentPosts, statusNoteMap } from '../data/content'
 
 const upcoming = statusNoteMap['upcoming-notes']
 const reading = statusNoteMap['currently-reading']
 const quick = statusNoteMap['quick-notes']
-const watching = statusNoteMap['now-watching']
 </script>
 
 <template>
-  <aside class="sidebar-stack">
-    <section class="glass-panel sidebar-card">
-      <div class="section-kicker">写在侧边</div>
-      <h3>这里不是团队介绍页，就是一块慢慢写长的地方。</h3>
+  <aside class="sidebar-stack editorial-sidebar-stack">
+    <section class="glass-panel sidebar-card sidebar-intro-card">
+      <div class="section-kicker">侧边栏</div>
+      <h3>这里放的是阅读辅助，不是另一套首页。</h3>
       <p>
-        我会把最近在做的事、重新想明白的事，还有一些没必要包装得很漂亮的过程留在这里。
+        所以我把它收得更克制：几条最近在记的线索、一些标签，还有最新更新，方便你判断接下来往哪看。
       </p>
-    </section>
-
-    <section class="glass-panel sidebar-card" v-if="upcoming">
-      <div class="section-kicker">{{ upcoming.title }}</div>
-      <ul class="sidebar-list">
-        <li v-for="item in upcoming.items" :key="item">
-          <strong>{{ item }}</strong>
-          <span>还在路上，但已经记下来了。</span>
-        </li>
-      </ul>
     </section>
 
     <section class="glass-panel sidebar-card" v-if="reading">
@@ -32,17 +21,17 @@ const watching = statusNoteMap['now-watching']
       <ul class="sidebar-list">
         <li v-for="item in reading.items" :key="item">
           <strong>{{ item }}</strong>
-          <span>这些东西会慢慢影响后面的文章和页面气质。</span>
+          <span>这些内容会慢慢渗进后面的页面和文章。</span>
         </li>
       </ul>
     </section>
 
-    <section class="glass-panel sidebar-card" v-if="watching">
-      <div class="section-kicker">{{ watching.title }}</div>
+    <section class="glass-panel sidebar-card" v-if="upcoming">
+      <div class="section-kicker">{{ upcoming.title }}</div>
       <ul class="sidebar-list">
-        <li v-for="item in watching.items" :key="item">
+        <li v-for="item in upcoming.items" :key="item">
           <strong>{{ item }}</strong>
-          <span>这部分是我最近持续回看、持续确认的地方。</span>
+          <span>先记下来，后面再长成完整文章。</span>
         </li>
       </ul>
     </section>
@@ -52,27 +41,17 @@ const watching = statusNoteMap['now-watching']
       <ul class="sidebar-list">
         <li v-for="item in quick.items" :key="item">
           <strong>{{ item }}</strong>
-          <span>先记下来，后面再慢慢长成文章。</span>
+          <span>一些短线索，会保留它本来的粗糙感。</span>
         </li>
       </ul>
+      <RouterLink to="/notes" class="section-link sidebar-inline-link">去看全部随记 →</RouterLink>
     </section>
 
     <section class="glass-panel sidebar-card">
-      <div class="section-kicker">最近常写</div>
-      <ul class="sidebar-list">
-        <li v-for="item in categories" :key="item.slug">
-          <strong>{{ item.name }}</strong>
-          <span>{{ item.desc }}</span>
-        </li>
-      </ul>
-    </section>
-
-    <section class="glass-panel sidebar-card">
-      <div class="section-kicker">顺手记下的标签</div>
+      <div class="section-kicker">标签入口</div>
       <div class="tag-cloud">
         <span v-for="tag in popularTags" :key="tag" class="tag-chip">{{ tag }}</span>
       </div>
-      <RouterLink to="/notes" class="section-link sidebar-inline-link">去看全部随记 →</RouterLink>
     </section>
 
     <section class="glass-panel sidebar-card">

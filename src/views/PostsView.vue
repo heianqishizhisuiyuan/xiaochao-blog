@@ -9,7 +9,7 @@ import { categories, posts } from '../data/content'
 
 useSeo({
   title: '文章',
-  description: '浏览博客文章、按分类筛选，并快速查找感兴趣的内容。',
+  description: '按分类与关键词浏览最近文章，快速判断哪篇值得现在点开。',
   path: '/posts'
 })
 
@@ -35,27 +35,29 @@ const totalReadingMinutes = computed(() => {
   <div class="page-shell aurora-bg">
     <SiteHeader />
 
-    <main class="content-layout">
+    <main class="content-layout editorial-content-layout">
       <section>
-        <div class="subpage-head compact posts-head">
+        <div class="subpage-head compact posts-head editorial-posts-head">
           <div>
             <div class="section-kicker">Posts</div>
-            <h1>文章列表</h1>
-            <p>这里不想做成内容货架，更想让你快速判断：这篇现在值不值得点开，要花多少时间读完。</p>
+            <h1>最近写下来的文章</h1>
+            <p>这页不想做成内容货架，更像一个清楚的入口：你可以很快知道这篇写什么、现在值不值得读，以及要花多长时间。</p>
           </div>
-          <div class="posts-overview glass-panel">
+          <div class="posts-overview glass-panel editorial-overview-card">
             <div>
               <strong>{{ filteredPosts.length }}</strong>
-              <span>当前结果</span>
+              <span>当前可读文章</span>
             </div>
             <div>
               <strong>{{ totalReadingMinutes }}</strong>
-              <span>大概需要的阅读分钟</span>
+              <span>大致阅读分钟</span>
             </div>
           </div>
         </div>
 
-        <section class="glass-panel filter-panel">
+        <section class="glass-panel filter-panel editorial-filter-panel">
+          <div class="section-kicker">筛选一下</div>
+          <p class="filter-intro">如果你已经知道自己想看什么，可以直接搜标题、摘要或标签；如果没有，就先按分类慢慢翻。</p>
           <el-input v-model="keyword" placeholder="搜索标题、摘要、标签..." clearable size="large" />
           <div class="tag-row filter-row">
             <button
@@ -77,14 +79,14 @@ const totalReadingMinutes = computed(() => {
           </div>
         </section>
 
-        <div v-if="filteredPosts.length" class="post-list-grid">
+        <div v-if="filteredPosts.length" class="post-list-grid editorial-post-list-grid">
           <PostCard v-for="post in filteredPosts" :key="post.slug" :post="post" />
         </div>
 
-        <div v-else class="glass-panel empty-state">
+        <div v-else class="glass-panel empty-state editorial-empty-state">
           <div class="section-kicker">No Results</div>
           <h3>这里暂时没有匹配内容</h3>
-          <p>换个关键词试试，或者先回到“全部”，慢慢翻也行。</p>
+          <p>换个关键词试试，或者先回到“全部”，从最近的文章开始翻也行。</p>
         </div>
       </section>
 

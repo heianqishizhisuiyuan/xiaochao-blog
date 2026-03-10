@@ -21,12 +21,12 @@ useSeo({
   <div class="page-shell aurora-bg">
     <SiteHeader />
 
-    <main v-if="note" class="content-layout detail-layout">
-      <article class="glass-panel article-shell reading-shell">
-        <div class="article-meta-top article-meta-grid">
+    <main v-if="note" class="content-layout detail-layout editorial-content-layout">
+      <article class="glass-panel article-shell editorial-article-shell editorial-note-detail-shell">
+        <div class="article-meta-top article-meta-grid editorial-article-meta-top">
           <div class="article-meta-primary">
-            <span>Notes</span>
-            <span>{{ note.type ?? 'status-note' }}</span>
+            <span class="meta-chip">Notes</span>
+            <span class="meta-chip">{{ note.type ?? 'status-note' }}</span>
           </div>
           <div class="article-meta-primary muted">
             <span v-if="note.updatedAt">{{ note.updatedAt }}</span>
@@ -34,9 +34,9 @@ useSeo({
         </div>
 
         <h1>{{ note.title }}</h1>
-        <p class="article-summary">{{ note.summary }}</p>
+        <p class="article-summary editorial-article-summary">{{ note.summary }}</p>
 
-        <section class="toc-box compact-reading-box">
+        <section class="toc-box editorial-toc-box">
           <div class="section-kicker">这条随记里有什么</div>
           <ul class="note-entry-list article-note-list">
             <li v-for="item in note.items" :key="item">{{ item }}</li>
@@ -48,7 +48,7 @@ useSeo({
     </main>
 
     <main v-else class="subpage-wrap">
-      <div class="glass-panel placeholder-block">
+      <div class="glass-panel placeholder-block editorial-empty-state">
         <div class="section-kicker">404</div>
         <h1>随记不存在</h1>
         <p>这条 notes 可能还没整理出来，或者已经被合并进别的内容流。</p>

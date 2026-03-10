@@ -16,23 +16,28 @@ const readingMood = computed(() => {
 </script>
 
 <template>
-  <article class="glass-panel post-card rich-post-card enhanced-post-card reading-post-card">
+  <article class="glass-panel post-card editorial-post-card">
     <div class="post-note-row">
       <span class="post-note-chip">{{ readingMood }}</span>
       <span class="post-meta-inline">{{ post.wordCount }} 字 · {{ post.sections.length }} 节</span>
     </div>
-    <div class="post-meta">
-      <span>{{ post.category }}</span>
-      <span>{{ post.date }} · {{ post.readingTime }}</span>
+
+    <div class="post-meta editorial-post-meta">
+      <span class="meta-chip">{{ post.date }}</span>
+      <span class="meta-chip">{{ post.category }}</span>
+      <span class="meta-chip">{{ post.readingTime }}</span>
     </div>
+
     <h3>{{ post.title }}</h3>
     <p>{{ post.summary }}</p>
-    <div class="post-card-footer">
+
+    <div class="post-card-footer editorial-post-footer">
       <div class="tag-row compact-tags">
         <span v-for="tag in post.tags.slice(0, 3)" :key="tag" class="tag-chip small">{{ tag }}</span>
       </div>
-      <div class="post-reading-hint">先看摘要，再决定现在要不要点开</div>
+      <div class="post-reading-hint">先看摘要，再决定是不是现在点开</div>
     </div>
-    <RouterLink :to="`/posts/${post.slug}`" class="post-link">进去读这篇 →</RouterLink>
+
+    <RouterLink :to="`/posts/${post.slug}`" class="post-link editorial-post-link">进去读这篇 →</RouterLink>
   </article>
 </template>

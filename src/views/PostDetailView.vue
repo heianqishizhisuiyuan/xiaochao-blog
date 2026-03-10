@@ -47,12 +47,12 @@ useSeo({
   <div class="page-shell aurora-bg">
     <SiteHeader />
 
-    <main v-if="post" class="content-layout detail-layout">
-      <article class="glass-panel article-shell reading-shell">
-        <div class="article-meta-top article-meta-grid">
+    <main v-if="post" class="content-layout detail-layout editorial-content-layout">
+      <article class="glass-panel article-shell editorial-article-shell">
+        <div class="article-meta-top article-meta-grid editorial-article-meta-top">
           <div class="article-meta-primary">
-            <span>{{ post.category }}</span>
-            <span>{{ post.date }}</span>
+            <span class="meta-chip">{{ post.category }}</span>
+            <span class="meta-chip">{{ post.date }}</span>
           </div>
           <div class="article-meta-primary muted">
             <span>{{ post.readingTime }}</span>
@@ -61,13 +61,13 @@ useSeo({
         </div>
 
         <h1>{{ post.title }}</h1>
-        <p class="article-summary">{{ post.summary }}</p>
+        <p class="article-summary editorial-article-summary">{{ post.summary }}</p>
 
-        <div class="tag-row article-tags">
+        <div class="tag-row article-tags editorial-article-tags">
           <span v-for="tag in post.tags" :key="tag" class="tag-chip small">{{ tag }}</span>
         </div>
 
-        <section v-if="toc.length > 1" class="toc-box compact-reading-box">
+        <section v-if="toc.length > 1" class="toc-box editorial-toc-box">
           <div class="section-kicker">目录</div>
           <div class="toc-list numbered-toc">
             <a v-for="(item, index) in toc" :key="item.id" :href="`#${item.id}`">
@@ -77,7 +77,7 @@ useSeo({
           </div>
         </section>
 
-        <div class="article-body reading-body">
+        <div class="article-body editorial-article-body">
           <section v-for="section in post.sections" :id="section.id" :key="section.id" class="article-section">
             <h2>{{ section.title }}</h2>
             <p v-for="(paragraph, index) in section.paragraphs" :key="`${section.id}-${index}`">
@@ -86,33 +86,33 @@ useSeo({
           </section>
         </div>
 
-        <section class="article-nav compact-reading-box">
+        <section class="article-nav editorial-article-nav">
           <div class="section-kicker">继续阅读</div>
           <div class="article-nav-grid">
-            <RouterLink v-if="previousPost" :to="`/posts/${previousPost.slug}`" class="article-nav-item">
+            <RouterLink v-if="previousPost" :to="`/posts/${previousPost.slug}`" class="article-nav-item editorial-article-nav-item">
               <span class="article-nav-label">上一篇</span>
               <strong>{{ previousPost.title }}</strong>
             </RouterLink>
-            <div v-else class="article-nav-item is-empty">
+            <div v-else class="article-nav-item is-empty editorial-article-nav-item">
               <span class="article-nav-label">上一篇</span>
               <strong>已经是最早的一篇</strong>
             </div>
 
-            <RouterLink v-if="nextPost" :to="`/posts/${nextPost.slug}`" class="article-nav-item">
+            <RouterLink v-if="nextPost" :to="`/posts/${nextPost.slug}`" class="article-nav-item editorial-article-nav-item">
               <span class="article-nav-label">下一篇</span>
               <strong>{{ nextPost.title }}</strong>
             </RouterLink>
-            <div v-else class="article-nav-item is-empty">
+            <div v-else class="article-nav-item is-empty editorial-article-nav-item">
               <span class="article-nav-label">下一篇</span>
               <strong>已经是最新的一篇</strong>
             </div>
           </div>
         </section>
 
-        <section class="article-related">
+        <section class="article-related editorial-article-related">
           <div class="section-kicker">相关文章</div>
           <div class="related-list">
-            <RouterLink v-for="item in relatedPosts" :key="item.slug" :to="`/posts/${item.slug}`" class="related-item">
+            <RouterLink v-for="item in relatedPosts" :key="item.slug" :to="`/posts/${item.slug}`" class="related-item editorial-related-item">
               <div>
                 <strong>{{ item.title }}</strong>
                 <p>{{ item.summary }}</p>
@@ -127,10 +127,10 @@ useSeo({
     </main>
 
     <main v-else class="subpage-wrap">
-      <div class="glass-panel placeholder-block">
+      <div class="glass-panel placeholder-block editorial-empty-state">
         <div class="section-kicker">404</div>
         <h1>文章不存在</h1>
-        <p>详情页内容已经切到本地 Markdown 结构，后面可以继续接真实内容流。</p>
+        <p>这篇内容可能还没整理出来，或者已经从当前文章流里移走了。</p>
         <RouterLink to="/posts" class="section-link">返回文章列表 →</RouterLink>
       </div>
     </main>
