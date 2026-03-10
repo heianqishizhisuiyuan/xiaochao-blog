@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { siteMeta } from '../data/content'
-import ThemeToggle from './ThemeToggle.vue'
+import ThemeMenu from './ThemeMenu.vue'
 import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-vue'
 </script>
 
@@ -37,9 +37,9 @@ import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-v
           <span>关于</span>
         </RouterLink>
       </nav>
-      <div class="desktop-only"><ThemeToggle /></div>
+      <div class="desktop-only"><ThemeMenu /></div>
     </div>
 
-    <div class="mobile-only"><ThemeToggle /></div>
+    <div class="mobile-only"><ThemeMenu /></div>
   </header>
 </template>

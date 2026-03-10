@@ -33,6 +33,16 @@ export const useThemeStore = defineStore('theme', {
       if (typeof document === 'undefined') return
       const root = document.documentElement
       root.dataset.theme = this.theme
+
+      // add a short-lived attribute for transition effects
+      try {
+        root.dataset.themeChanging = '1'
+        window.setTimeout(() => {
+          delete root.dataset.themeChanging
+        }, 520)
+      } catch {
+        // ignore
+      }
     }
   }
 })
