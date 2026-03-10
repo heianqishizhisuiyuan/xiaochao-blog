@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import PostCard from '../components/PostCard.vue'
 import SiteFooter from '../components/SiteFooter.vue'
 import SiteHeader from '../components/SiteHeader.vue'
@@ -13,16 +14,43 @@ useSeo({
   path: '/posts'
 })
 
+const route = useRoute()
+const router = useRouter()
 const keyword = ref('')
 const activeCategory = ref('All')
+const activeTag = ref('')
+
+watch(
+  () => route.query,
+  (query) => {
+    keyword.value = typeof query.q === 'string' ? query.q : ''
+    activeCategory.value = typeof query.category === 'string' ? query.category : 'All'
+    activeTag.value = typeof query.tag === 'string' ? query.tag : ''
+  },
+  { immediate: true }
+)
+
+const updateQuery = () => {
+  router.replace({
+    path: '/posts',
+    query: {
+      ...(keyword.value.trim() ? { q: keyword.value.trim() } : {}),
+      ...(activeCategory.value !== 'All' ? { category: activeCategory.value } : {}),
+      ...(activeTag.value ? { tag: activeTag.value } : {})
+    }
+  })
+}
+
+watch([keyword, activeCategory, activeTag], updateQuery)
 
 const filteredPosts = computed(() => {
   return posts.filter((post) => {
     const byCategory = activeCategory.value === 'All' || post.category === activeCategory.value
+    const byTag = !activeTag.value || post.tags.includes(activeTag.value)
     const q = keyword.value.trim().toLowerCase()
     const searchable = [post.title, post.summary, post.category, ...post.tags].join(' ').toLowerCase()
     const byKeyword = !q || searchable.includes(q)
-    return byCategory && byKeyword
+    return byCategory && byTag && byKeyword
   })
 })
 
@@ -76,6 +104,10 @@ const totalReadingMinutes = computed(() => {
             >
               {{ item.name }}
             </button>
+          </div>
+          <div v-if="activeTag" class="active-filter-hint">
+            <span class="tag-chip small">标签：{{ activeTag }}</span>
+            <button class="filter-chip ghost" @click="activeTag = ''">清除标签筛选</button>
           </div>
         </section>
 

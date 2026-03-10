@@ -54,7 +54,7 @@ const archiveStats = computed(() => {
           <span>{{ year.total }} 篇</span>
         </div>
 
-        <div v-for="month in year.months" :key="month.key" class="archive-month editorial-archive-month">
+        <div v-for="month in year.months" :id="`archive-${month.key}`" :key="month.key" class="archive-month editorial-archive-month">
           <div class="archive-month-title">{{ month.name }} · {{ month.count }} 篇</div>
           <div class="archive-links">
             <RouterLink v-for="item in month.items" :key="item.slug" :to="`/posts/${item.slug}`" class="archive-item archive-card-link editorial-archive-item">
