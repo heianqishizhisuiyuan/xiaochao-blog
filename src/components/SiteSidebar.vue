@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { archiveGroups, categories, popularTags, recentPosts, statusNoteMap } from '../data/content'
-import { Calendar, Folder, PriceTag, Clock, CollectionTag, ArrowLeft, ArrowRight, Search, Menu } from '@element-plus/icons-vue'
+import { categories, popularTags, recentPosts, statusNoteMap } from '../data/content'
+import { Folder, PriceTag, Clock, CollectionTag, Search, Menu } from '@element-plus/icons-vue'
+import ArchiveTimeline from './ArchiveTimeline.vue'
 
 type TocItem = { id: string; title: string }
 
@@ -38,42 +39,6 @@ const submitSearch = () => {
   })
 }
 
-
-const currentYear = computed(() => {
-  const raw = typeof route.query.year === 'string' ? route.query.year : ''
-  const years = archiveGroups.map((y) => y.year)
-  if (raw && years.includes(raw)) return raw
-  return years[0] ?? ''
-})
-
-const yearOptions = computed(() => archiveGroups.map((y) => y.year))
-
-const activeYearGroup = computed(() => archiveGroups.find((y) => y.year === currentYear.value) ?? null)
-
-const archiveLinks = computed(() =>
-  (activeYearGroup.value?.months ?? []).map((month) => ({
-    key: month.key,
-    label: `${month.name}`,
-    count: month.count,
-    to: `/archive?year=${encodeURIComponent(currentYear.value)}#archive-${month.key}`
-  }))
-)
-
-const gotoYear = (year: string) => {
-  router.push({ path: route.path, query: { ...route.query, year } })
-}
-
-const prevYear = computed(() => {
-  const years = yearOptions.value
-  const index = years.findIndex((y) => y === currentYear.value)
-  return index >= 0 ? years[index + 1] ?? '' : ''
-})
-
-const nextYear = computed(() => {
-  const years = yearOptions.value
-  const index = years.findIndex((y) => y === currentYear.value)
-  return index > 0 ? years[index - 1] ?? '' : ''
-})
 
 const categoryLinks = computed(() =>
   categories.map((item) => ({
@@ -123,30 +88,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       </div>
     </section>
 
-    <section class="glass-panel sidebar-card">
-      <div class="section-kicker kicker-with-icon">
-        <el-icon><Calendar /></el-icon>
-        <span>按日期找</span>
-      </div>
-      <div class="sidebar-year-nav">
-        <button class="filter-chip ghost icon-btn" :disabled="!prevYear" @click="prevYear && gotoYear(prevYear)" :title="prevYear ? `上一年 ${prevYear}` : ''" aria-label="Prev year">
-          <el-icon><ArrowLeft /></el-icon>
-        </button>
-        <strong class="sidebar-year-title">{{ currentYear }}</strong>
-        <button class="filter-chip ghost icon-btn" :disabled="!nextYear" @click="nextYear && gotoYear(nextYear)" :title="nextYear ? `下一年 ${nextYear}` : ''" aria-label="Next year">
-          <el-icon><ArrowRight /></el-icon>
-        </button>
-      </div>
-      <p class="sidebar-intro-copy">一年一屏，按月份快速跳转。</p>
-      <ul class="sidebar-nav-list archive-nav-list">
-        <li v-for="item in archiveLinks" :key="item.key">
-          <RouterLink :to="item.to" class="sidebar-nav-link compact" :class="{ active: routeFullPath === item.to }">
-            <span>{{ item.label }}</span>
-            <span class="sidebar-nav-meta">{{ item.count }}</span>
-          </RouterLink>
-        </li>
-      </ul>
-    </section>
+    <ArchiveTimeline />
 
     <section class="glass-panel sidebar-card">
       <div class="section-kicker kicker-with-icon">

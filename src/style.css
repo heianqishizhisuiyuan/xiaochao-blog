@@ -614,6 +614,99 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
 }
+
+.timeline-card {
+  overflow: hidden;
+}
+.timeline-head {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.timeline-year {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.55);
+  color: var(--ink-soft);
+  padding: 10px 12px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+:root[data-theme='dark'] .timeline-year {
+  background: rgba(17,24,39,0.42);
+}
+.timeline-hint {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+.timeline-body {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  gap: 10px;
+  align-items: start;
+  outline: none;
+}
+.timeline-track {
+  display: grid;
+  gap: 8px;
+  padding: 6px 0;
+}
+.timeline-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: rgba(255,255,255,0.28);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+:root[data-theme='dark'] .timeline-item {
+  background: rgba(17,24,39,0.32);
+}
+.timeline-item:hover {
+  border-color: rgba(15, 23, 42, 0.10);
+  background: rgba(255,255,255,0.42);
+}
+:root[data-theme='dark'] .timeline-item:hover {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(17,24,39,0.48);
+}
+.timeline-item.active {
+  border-color: rgba(53, 92, 170, 0.24);
+  background: var(--accent-soft);
+}
+:root[data-theme='warm'] .timeline-item.active {
+  border-color: rgba(138,82,48,0.22);
+}
+:root[data-theme='dark'] .timeline-item.active {
+  border-color: rgba(122,162,255,0.26);
+}
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(92, 107, 131, 0.38);
+}
+.timeline-item.active .timeline-dot {
+  background: var(--accent);
+}
+.timeline-label {
+  font-weight: 650;
+}
+.timeline-count {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+.timeline-footer {
+  margin-top: 14px;
+}
 .empty-state,
 .placeholder-block {
   border-radius: 24px;
