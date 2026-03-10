@@ -22,7 +22,7 @@ useSeo({
       <section>
         <div class="subpage-head compact posts-head editorial-posts-head">
           <div>
-            <div class="section-kicker">Notes</div>
+            <div class="section-kicker">随记</div>
             <h1>最近顺手记下来的东西</h1>
             <p>这里放的不是完整文章，而是最近在看、在想、在盯、先记下来免得忘的线索。它们更短，也更接近真实的写作现场。</p>
           </div>
@@ -37,7 +37,7 @@ useSeo({
             </ul>
             <div class="note-entry-footer">
               <div class="note-entry-meta" v-if="note.updatedAt">更新于 {{ note.updatedAt }}</div>
-              <RouterLink :to="`/notes/${note.slug}`" class="section-link">展开这条 →</RouterLink>
+              <RouterLink :to="`/notes/${note.slug}`" class="section-link">展开 →</RouterLink>
             </div>
           </article>
         </div>

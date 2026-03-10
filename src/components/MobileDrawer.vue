@@ -26,8 +26,19 @@ const onKeydown = (e: KeyboardEvent) => {
   if (e.key === 'Escape') close()
 }
 
-onMounted(() => document.addEventListener('keydown', onKeydown))
-onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
+const onTouchMove = (e: TouchEvent) => {
+  // Prevent background scroll on iOS/Android while drawer open.
+  if (props.modelValue) e.preventDefault()
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', onKeydown)
+  document.addEventListener('touchmove', onTouchMove, { passive: false })
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('touchmove', onTouchMove)
+})
 </script>
 
 <template>

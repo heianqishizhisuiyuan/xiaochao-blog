@@ -27,7 +27,7 @@ const archiveStats = computed(() => {
     <main class="subpage-wrap archive-wrap editorial-archive-wrap">
       <div class="subpage-head compact archive-head editorial-subpage-head">
         <div>
-          <div class="section-kicker">Archive</div>
+          <div class="section-kicker">归档</div>
           <h1>把时间线整理清楚</h1>
           <p>归档不是为了显得内容很多，而是为了让这块博客看起来真的在持续生长，也方便以后回头翻。</p>
         </div>

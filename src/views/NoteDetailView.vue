@@ -25,8 +25,8 @@ useSeo({
       <article class="glass-panel article-shell editorial-article-shell editorial-note-detail-shell">
         <div class="article-meta-top article-meta-grid editorial-article-meta-top">
           <div class="article-meta-primary">
-            <span class="meta-chip">Notes</span>
-            <span class="meta-chip">{{ note.type ?? 'status-note' }}</span>
+            <span class="meta-chip">随记</span>
+            <span class="meta-chip">{{ note.type ?? '随记' }}</span>
           </div>
           <div class="article-meta-primary muted">
             <span v-if="note.updatedAt">{{ note.updatedAt }}</span>
@@ -51,7 +51,7 @@ useSeo({
       <div class="glass-panel placeholder-block editorial-empty-state">
         <div class="section-kicker">404</div>
         <h1>随记不存在</h1>
-        <p>这条 notes 可能还没整理出来，或者已经被合并进别的内容流。</p>
+        <p>这条随记可能还没整理出来，或者已经被合并进别的内容流。</p>
         <RouterLink to="/notes" class="section-link">返回随记列表 →</RouterLink>
       </div>
     </main>
