@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { siteMeta } from '../data/content'
 import ThemeToggle from './ThemeToggle.vue'
+import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-vue'
 </script>
 
 <template>
@@ -15,11 +16,26 @@ import ThemeToggle from './ThemeToggle.vue'
 
     <div class="topbar-right">
       <nav class="nav-links editorial-nav-links">
-        <RouterLink to="/">首页</RouterLink>
-        <RouterLink to="/posts">文章</RouterLink>
-        <RouterLink to="/notes">随记</RouterLink>
-        <RouterLink to="/archive">归档</RouterLink>
-        <RouterLink to="/about">关于</RouterLink>
+        <RouterLink to="/" class="nav-item">
+          <el-icon><House /></el-icon>
+          <span>首页</span>
+        </RouterLink>
+        <RouterLink to="/posts" class="nav-item">
+          <el-icon><Document /></el-icon>
+          <span>文章</span>
+        </RouterLink>
+        <RouterLink to="/notes" class="nav-item">
+          <el-icon><Notebook /></el-icon>
+          <span>随记</span>
+        </RouterLink>
+        <RouterLink to="/archive" class="nav-item">
+          <el-icon><Calendar /></el-icon>
+          <span>归档</span>
+        </RouterLink>
+        <RouterLink to="/about" class="nav-item">
+          <el-icon><User /></el-icon>
+          <span>关于</span>
+        </RouterLink>
       </nav>
       <ThemeToggle />
     </div>

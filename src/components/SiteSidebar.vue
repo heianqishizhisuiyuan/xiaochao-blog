@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { archiveGroups, categories, popularTags, recentPosts, statusNoteMap } from '../data/content'
+import { Calendar, Folder, PriceTag, Clock, CollectionTag, ArrowLeft, ArrowRight, Search, Menu } from '@element-plus/icons-vue'
 
 type TocItem = { id: string; title: string }
 
@@ -99,27 +100,42 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
 <template>
   <aside class="sidebar-stack editorial-sidebar-stack sidebar-nav-layout">
     <section v-if="!props.hideSearch" class="glass-panel sidebar-card sidebar-search-card">
-      <div class="section-kicker">搜索</div>
+      <div class="section-kicker kicker-with-icon">
+        <el-icon><Search /></el-icon>
+        <span>搜索</span>
+      </div>
       <form class="sidebar-search" @submit.prevent="submitSearch">
         <input v-model="sidebarSearch" class="sidebar-search-input" placeholder="搜标题 / 摘要 / 标签…" />
-        <button class="sidebar-search-btn" type="submit">Go</button>
+        <button class="sidebar-search-btn" type="submit" aria-label="Search">
+          <el-icon><Search /></el-icon>
+        </button>
       </form>
       <div class="sidebar-search-hint">按回车直接跳到文章列表筛选。</div>
     </section>
 
     <section v-if="props.toc && props.toc.length > 1" class="glass-panel sidebar-card sidebar-toc-card">
-      <div class="section-kicker">本页目录</div>
+      <div class="section-kicker kicker-with-icon">
+        <el-icon><Menu /></el-icon>
+        <span>本页目录</span>
+      </div>
       <div class="toc-list sidebar-toc">
         <a v-for="item in props.toc" :key="item.id" class="sidebar-toc-link" :href="`#${item.id}`">{{ item.title }}</a>
       </div>
     </section>
 
     <section class="glass-panel sidebar-card">
-      <div class="section-kicker">按日期找</div>
+      <div class="section-kicker kicker-with-icon">
+        <el-icon><Calendar /></el-icon>
+        <span>按日期找</span>
+      </div>
       <div class="sidebar-year-nav">
-        <button class="filter-chip ghost" :disabled="!prevYear" @click="prevYear && gotoYear(prevYear)">← {{ prevYear || ' ' }}</button>
+        <button class="filter-chip ghost icon-btn" :disabled="!prevYear" @click="prevYear && gotoYear(prevYear)" :title="prevYear ? `上一年 ${prevYear}` : ''" aria-label="Prev year">
+          <el-icon><ArrowLeft /></el-icon>
+        </button>
         <strong class="sidebar-year-title">{{ currentYear }}</strong>
-        <button class="filter-chip ghost" :disabled="!nextYear" @click="nextYear && gotoYear(nextYear)">{{ nextYear || ' ' }} →</button>
+        <button class="filter-chip ghost icon-btn" :disabled="!nextYear" @click="nextYear && gotoYear(nextYear)" :title="nextYear ? `下一年 ${nextYear}` : ''" aria-label="Next year">
+          <el-icon><ArrowRight /></el-icon>
+        </button>
       </div>
       <p class="sidebar-intro-copy">一年一屏，按月份快速跳转。</p>
       <ul class="sidebar-nav-list archive-nav-list">
@@ -133,7 +149,10 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
     </section>
 
     <section class="glass-panel sidebar-card">
-      <div class="section-kicker">按分类找</div>
+      <div class="section-kicker kicker-with-icon">
+        <el-icon><Folder /></el-icon>
+        <span>按分类找</span>
+      </div>
       <ul class="sidebar-topic-list">
         <li v-for="item in categoryLinks" :key="item.label">
           <RouterLink :to="item.to" class="sidebar-topic-link" :class="{ active: isActiveQuery(item.to) }">
@@ -145,7 +164,10 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
     </section>
 
     <section class="glass-panel sidebar-card">
-      <div class="section-kicker">常用标签</div>
+      <div class="section-kicker kicker-with-icon">
+        <el-icon><CollectionTag /></el-icon>
+        <span>常用标签</span>
+      </div>
       <p class="sidebar-intro-copy">直接点进去逛，不用先想关键词。</p>
       <div class="tag-cloud sidebar-tag-cloud">
         <RouterLink
@@ -155,14 +177,18 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
           class="tag-chip sidebar-tag-link"
           :class="{ active: isActiveQuery(item.to) }"
         >
-          #{{ item.label }}
+          <el-icon class="chip-icon"><PriceTag /></el-icon>
+          <span>{{ item.label }}</span>
         </RouterLink>
       </div>
       <RouterLink to="/posts" class="section-link sidebar-inline-link">更多标签/筛选 →</RouterLink>
     </section>
 
     <section class="glass-panel sidebar-card">
-      <div class="section-kicker">标签（更多）</div>
+      <div class="section-kicker kicker-with-icon">
+        <el-icon><PriceTag /></el-icon>
+        <span>标签（更多）</span>
+      </div>
       <div class="tag-cloud sidebar-tag-cloud">
         <RouterLink
           v-for="item in tagLinks"
@@ -177,7 +203,10 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
     </section>
 
     <section class="glass-panel sidebar-card">
-      <div class="section-kicker">最近更新</div>
+      <div class="section-kicker kicker-with-icon">
+        <el-icon><Clock /></el-icon>
+        <span>最近更新</span>
+      </div>
       <ul class="mini-posts">
         <li v-for="post in recentPosts" :key="post.slug">
           <RouterLink :to="`/posts/${post.slug}`">{{ post.title }}</RouterLink>
