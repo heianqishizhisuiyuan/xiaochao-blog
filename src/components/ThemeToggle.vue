@@ -10,9 +10,10 @@ const setTheme = (value: ThemeName) => themeStore.setTheme(value)
 </script>
 
 <template>
-  <div class="theme-toggle" role="group" aria-label="Theme">
-    <button class="theme-pill" :class="{ active: theme === 'cool' }" @click="setTheme('cool')">冷白</button>
-    <button class="theme-pill" :class="{ active: theme === 'warm' }" @click="setTheme('warm')">暖色</button>
-    <button class="theme-pill" :class="{ active: theme === 'dark' }" @click="setTheme('dark')">夜读</button>
+  <div class="theme-switch" role="group" aria-label="主题">
+    <button class="theme-seg" :class="{ active: theme === 'cool' }" @click="setTheme('cool')">冷白</button>
+    <button class="theme-seg" :class="{ active: theme === 'warm' }" @click="setTheme('warm')">暖色</button>
+    <button class="theme-seg" :class="{ active: theme === 'dark' }" @click="setTheme('dark')">夜读</button>
+    <span class="theme-indicator" :data-theme="theme" aria-hidden="true"></span>
   </div>
 </template>

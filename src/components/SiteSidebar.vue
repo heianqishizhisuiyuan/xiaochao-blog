@@ -71,7 +71,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       </div>
       <form class="sidebar-search" @submit.prevent="submitSearch">
         <input v-model="sidebarSearch" class="sidebar-search-input" placeholder="搜标题 / 摘要 / 标签…" />
-        <button class="sidebar-search-btn" type="submit" aria-label="Search">
+        <button class="sidebar-search-btn" type="submit" aria-label="搜索">
           <el-icon><Search /></el-icon>
         </button>
       </form>

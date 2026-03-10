@@ -90,7 +90,7 @@ const onYearChange = () => {
     </div>
 
     <div class="timeline-body" tabindex="0" @keydown="onKey">
-      <button class="filter-chip ghost icon-btn" type="button" @click="step(-1)" aria-label="Up">
+      <button class="filter-chip ghost icon-btn" type="button" @click="step(-1)" aria-label="上一个月份">
         <el-icon><ArrowUp /></el-icon>
       </button>
 
@@ -109,7 +109,7 @@ const onYearChange = () => {
         </button>
       </div>
 
-      <button class="filter-chip ghost icon-btn" type="button" @click="step(1)" aria-label="Down">
+      <button class="filter-chip ghost icon-btn" type="button" @click="step(1)" aria-label="下一个月份">
         <el-icon><ArrowDown /></el-icon>
       </button>
     </div>
