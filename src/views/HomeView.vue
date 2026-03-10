@@ -1,20 +1,26 @@
 <script setup lang="ts">
-import PostCard from '../components/PostCard.vue'
+import { computed } from 'vue'
 import SiteFooter from '../components/SiteFooter.vue'
 import SiteHeader from '../components/SiteHeader.vue'
+import SiteSidebar from '../components/SiteSidebar.vue'
 import { useSeo } from '../composables/useSeo'
-import { categories, featuredPosts, homeStatus, siteMeta } from '../data/content'
-
-const homePrinciples = [
-  '写清楚真实判断，而不是包装成项目成果。',
-  '让首页先服务阅读，再服务展示。',
-  '把持续更新感做出来，而不是只做一次好看的封面。'
-]
+import { posts, siteMeta, statusNoteMap } from '../data/content'
 
 useSeo({
   title: '首页',
   description: siteMeta.description,
   path: '/'
+})
+
+const latestPosts = computed(() => posts.slice(0, 8))
+const featuredPosts = computed(() => posts.filter((post) => post.featured).slice(0, 3))
+
+const latestNotes = computed(() => {
+  const notes = Object.values(statusNoteMap)
+  return notes
+    .slice()
+    .sort((a, b) => String(b.updatedAt ?? '').localeCompare(String(a.updatedAt ?? '')))
+    .slice(0, 3)
 })
 </script>
 
@@ -22,70 +28,89 @@ useSeo({
   <div class="page-shell aurora-bg">
     <SiteHeader />
 
-    <main>
-      <section class="hero-section editorial-hero">
-        <div class="hero-copy editorial-hero-copy">
-          <div class="hero-badge">个人写作现场 / 博客首页</div>
-          <h1>{{ homeStatus.introTitle }}</h1>
-          <p>{{ homeStatus.introDescription }}</p>
-
-          <div class="hero-actions">
-            <RouterLink to="/posts"><el-button type="primary" size="large" round>开始读文章</el-button></RouterLink>
-            <RouterLink to="/notes"><el-button plain size="large" round>翻翻最近随记</el-button></RouterLink>
+    <main class="content-layout editorial-content-layout home-layout">
+      <section>
+        <header class="glass-panel home-intro-card">
+          <div class="section-kicker">个人博客</div>
+          <h1 class="home-title">{{ siteMeta.name }}</h1>
+          <p class="home-lead">{{ siteMeta.tagline }}</p>
+          <div class="home-entry-actions">
+            <RouterLink to="/posts" class="section-link">去文章列表 →</RouterLink>
+            <RouterLink to="/archive" class="section-link">按时间归档 →</RouterLink>
+            <RouterLink to="/notes" class="section-link">最近随记 →</RouterLink>
           </div>
-        </div>
+        </header>
 
-        <aside class="glass-panel hero-focus-card editorial-focus-card">
-          <div class="section-kicker">现在主要在写</div>
-          <ul class="focus-list compact-focus-list">
-            <li v-for="item in homeStatus.nowDoing" :key="item">{{ item }}</li>
+        <section class="section-head compact-section-head">
+          <div>
+            <div class="section-kicker">Latest</div>
+            <h2>最近更新</h2>
+          </div>
+          <RouterLink to="/posts" class="section-link">查看全部 →</RouterLink>
+        </section>
+
+        <section class="glass-panel home-feed-card">
+          <ul class="post-compact-list">
+            <li v-for="post in latestPosts" :key="post.slug" class="post-compact-item">
+              <RouterLink :to="`/posts/${post.slug}`" class="post-compact-link">
+                <div class="post-compact-main">
+                  <strong class="post-compact-title">{{ post.title }}</strong>
+                  <p class="post-compact-summary">{{ post.summary }}</p>
+                  <div class="post-compact-meta">
+                    <span class="meta-chip">{{ post.date }}</span>
+                    <span class="meta-chip">{{ post.category }}</span>
+                    <span class="meta-chip">{{ post.readingTime }}</span>
+                  </div>
+                </div>
+                <span class="post-compact-arrow">→</span>
+              </RouterLink>
+            </li>
           </ul>
-          <RouterLink to="/about" class="section-link hero-inline-link">了解这个站为什么这样做 →</RouterLink>
-        </aside>
+        </section>
+
+        <section v-if="featuredPosts.length" class="section-head">
+          <div>
+            <div class="section-kicker">Featured</div>
+            <h2>推荐先读</h2>
+          </div>
+        </section>
+
+        <section v-if="featuredPosts.length" class="home-featured-grid">
+          <article v-for="post in featuredPosts" :key="post.slug" class="glass-panel featured-mini-card">
+            <div class="section-kicker">{{ post.category }}</div>
+            <h3 class="featured-mini-title">
+              <RouterLink :to="`/posts/${post.slug}`">{{ post.title }}</RouterLink>
+            </h3>
+            <p class="featured-mini-summary">{{ post.summary }}</p>
+            <div class="featured-mini-meta">
+              <span>{{ post.date }}</span>
+              <span>·</span>
+              <span>{{ post.readingTime }}</span>
+            </div>
+          </article>
+        </section>
+
+        <section v-if="latestNotes.length" class="section-head">
+          <div>
+            <div class="section-kicker">Notes</div>
+            <h2>随手记（最近）</h2>
+          </div>
+          <RouterLink to="/notes" class="section-link">去随记页 →</RouterLink>
+        </section>
+
+        <section v-if="latestNotes.length" class="home-notes-grid">
+          <article v-for="note in latestNotes" :key="note.slug" class="glass-panel note-mini-card">
+            <div class="section-kicker">{{ note.title }}</div>
+            <p class="note-mini-summary">{{ note.summary }}</p>
+            <ul class="note-mini-list">
+              <li v-for="item in note.items.slice(0, 4)" :key="item">{{ item }}</li>
+            </ul>
+            <RouterLink :to="`/notes/${note.slug}`" class="section-link">展开 →</RouterLink>
+          </article>
+        </section>
       </section>
 
-      <section class="home-editorial-strip">
-        <article class="glass-panel editorial-note-card">
-          <div class="section-kicker">首页原则</div>
-          <ul class="info-list editorial-list">
-            <li v-for="item in homePrinciples" :key="item">{{ item }}</li>
-          </ul>
-        </article>
-
-        <article class="glass-panel editorial-note-card mellow-card">
-          <div class="section-kicker">阅读入口</div>
-          <p>
-            如果你第一次来，建议先看推荐阅读；如果想知道我最近到底在忙什么，直接去随记。
-            这个站不追求“信息一次说全”，更在意你能不能顺着它自然走进去。
-          </p>
-        </article>
-      </section>
-
-      <section class="section-head compact-section-head">
-        <div>
-          <div class="section-kicker">Writing Directions</div>
-          <h2>最近这块博客主要围着三件事在长</h2>
-        </div>
-      </section>
-
-      <section class="feature-grid reading-directions-grid editorial-direction-grid">
-        <article v-for="item in categories" :key="item.slug" class="glass-panel feature-card direction-card editorial-direction-card">
-          <div class="section-kicker">{{ item.name }}</div>
-          <p>{{ item.desc }}</p>
-        </article>
-      </section>
-
-      <section class="section-head">
-        <div>
-          <div class="section-kicker">Featured Posts</div>
-          <h2>推荐从这里开始读</h2>
-        </div>
-        <RouterLink to="/posts" class="section-link">查看全部文章 →</RouterLink>
-      </section>
-
-      <section class="posts-grid refined-posts-grid">
-        <PostCard v-for="post in featuredPosts" :key="post.slug" :post="post" />
-      </section>
+      <SiteSidebar />
     </main>
 
     <SiteFooter />
