@@ -30,7 +30,7 @@ watch(
   <MobileDrawer v-model="open" title="筛选与归档">
     <div class="mobile-filter-section">
       <div class="mobile-filter-title">按日期</div>
-      <ArchiveTimeline />
+      <ArchiveTimeline :compact="true" />
     </div>
 
     <div class="mobile-filter-section">

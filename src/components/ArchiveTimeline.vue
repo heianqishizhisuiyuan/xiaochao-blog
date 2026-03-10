@@ -5,6 +5,8 @@ import { Calendar, ArrowUp, ArrowDown } from '@element-plus/icons-vue'
 import { archiveGroups } from '../data/content'
 import { buildTimeline, pickDefaultIndex, readYearFromRoute } from '../utils/archiveTimeline'
 
+const props = defineProps<{ compact?: boolean }>()
+
 const route = useRoute()
 const router = useRouter()
 
@@ -21,9 +23,18 @@ const years = computed(() => archiveGroups.map((g) => g.year))
 
 const timeline = computed(() => buildTimeline(currentYear.value))
 
+const shownItems = computed(() => {
+  const items = timeline.value.items
+  if (!props.compact) return items
+  // show recent months with content first; if all empty, fall back to newest months.
+  const withContent = items.filter((i) => i.count > 0)
+  const pick = (withContent.length ? withContent : items).slice(0, 6)
+  return pick
+})
+
 const activeIndex = ref(0)
 watch(
-  () => timeline.value.items,
+  () => shownItems.value,
   (items) => {
     activeIndex.value = pickDefaultIndex(items)
   },
@@ -31,7 +42,7 @@ watch(
 )
 
 const clampIndex = (i: number) => {
-  const max = timeline.value.items.length - 1
+  const max = shownItems.value.length - 1
   return Math.max(0, Math.min(max, i))
 }
 
@@ -40,7 +51,7 @@ const selectIndex = (i: number) => {
 }
 
 const gotoActive = () => {
-  const item = timeline.value.items[activeIndex.value]
+  const item = shownItems.value[activeIndex.value]
   if (!item) return
   router.push(item.to)
 }
@@ -96,7 +107,7 @@ const onYearChange = () => {
 
       <div class="timeline-track">
         <button
-          v-for="(item, idx) in timeline.items"
+          v-for="(item, idx) in shownItems"
           :key="item.key"
           class="timeline-item"
           :class="{ active: idx === activeIndex }"
