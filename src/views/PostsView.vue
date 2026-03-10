@@ -17,14 +17,14 @@ useSeo({
 const route = useRoute()
 const router = useRouter()
 const keyword = ref('')
-const activeCategory = ref('All')
+const activeCategory = ref('全部')
 const activeTag = ref('')
 
 watch(
   () => route.query,
   (query) => {
     keyword.value = typeof query.q === 'string' ? query.q : ''
-    activeCategory.value = typeof query.category === 'string' ? query.category : 'All'
+    activeCategory.value = typeof query.category === 'string' ? query.category : '全部'
     activeTag.value = typeof query.tag === 'string' ? query.tag : ''
   },
   { immediate: true }
@@ -35,7 +35,7 @@ const updateQuery = () => {
     path: '/posts',
     query: {
       ...(keyword.value.trim() ? { q: keyword.value.trim() } : {}),
-      ...(activeCategory.value !== 'All' ? { category: activeCategory.value } : {}),
+      ...(activeCategory.value !== '全部' ? { category: activeCategory.value } : {}),
       ...(activeTag.value ? { tag: activeTag.value } : {})
     }
   })
@@ -45,7 +45,7 @@ watch([keyword, activeCategory, activeTag], updateQuery)
 
 const filteredPosts = computed(() => {
   return posts.filter((post) => {
-    const byCategory = activeCategory.value === 'All' || post.category === activeCategory.value
+    const byCategory = activeCategory.value === '全部' || post.category === activeCategory.value
     const byTag = !activeTag.value || post.tags.includes(activeTag.value)
     const q = keyword.value.trim().toLowerCase()
     const searchable = [post.title, post.summary, post.category, ...post.tags].join(' ').toLowerCase()
@@ -67,7 +67,7 @@ const totalReadingMinutes = computed(() => {
       <section>
         <div class="subpage-head compact posts-head editorial-posts-head">
           <div>
-            <div class="section-kicker">Posts</div>
+            <div class="section-kicker">文章</div>
             <h1>最近写下来的文章</h1>
             <p>这页不想做成内容货架，更像一个清楚的入口：你可以很快知道这篇写什么、现在值不值得读，以及要花多长时间。</p>
           </div>
@@ -90,8 +90,8 @@ const totalReadingMinutes = computed(() => {
           <div class="tag-row filter-row">
             <button
               class="filter-chip"
-              :class="{ active: activeCategory === 'All' }"
-              @click="activeCategory = 'All'"
+              :class="{ active: activeCategory === '全部' }"
+              @click="activeCategory = '全部'"
             >
               全部
             </button>
@@ -116,7 +116,7 @@ const totalReadingMinutes = computed(() => {
         </div>
 
         <div v-else class="glass-panel empty-state editorial-empty-state">
-          <div class="section-kicker">No Results</div>
+          <div class="section-kicker">暂无结果</div>
           <h3>这里暂时没有匹配内容</h3>
           <p>换个关键词试试，或者先回到“全部”，从最近的文章开始翻也行。</p>
         </div>

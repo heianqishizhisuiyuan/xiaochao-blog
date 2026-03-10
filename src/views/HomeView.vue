@@ -45,7 +45,7 @@ const latestNotes = computed(() => {
 
         <section class="section-head compact-section-head">
           <div>
-            <div class="section-kicker">Latest</div>
+            <div class="section-kicker">最近</div>
             <h2>最近更新</h2>
           </div>
           <RouterLink to="/posts" class="section-link">查看全部 →</RouterLink>
