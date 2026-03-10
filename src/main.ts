@@ -8,8 +8,17 @@ import router from './router'
 import './style.css'
 
 const app = createApp(App)
-app.use(createPinia())
+const pinia = createPinia()
+
+app.use(pinia)
 app.use(router)
 app.component('ElButton', ElButton)
 app.component('ElInput', ElInput)
+
+// Theme init
+import('./stores/theme').then(({ useThemeStore }) => {
+  const theme = useThemeStore(pinia)
+  theme.init()
+})
+
 app.mount('#app')

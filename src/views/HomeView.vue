@@ -22,6 +22,8 @@ const latestNotes = computed(() => {
     .sort((a, b) => String(b.updatedAt ?? '').localeCompare(String(a.updatedAt ?? '')))
     .slice(0, 3)
 })
+
+
 </script>
 
 <template>
@@ -110,7 +112,7 @@ const latestNotes = computed(() => {
         </section>
       </section>
 
-      <SiteSidebar />
+      <SiteSidebar :hideSearch="true" />
     </main>
 
     <SiteFooter />

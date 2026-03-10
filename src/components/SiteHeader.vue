@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { siteMeta } from '../data/content'
+import ThemeToggle from './ThemeToggle.vue'
 </script>
 
 <template>
@@ -11,12 +12,16 @@ import { siteMeta } from '../data/content'
         <div class="brand-sub">{{ siteMeta.tagline }}</div>
       </div>
     </RouterLink>
-    <nav class="nav-links editorial-nav-links">
-      <RouterLink to="/">首页</RouterLink>
-      <RouterLink to="/posts">文章</RouterLink>
-      <RouterLink to="/notes">随记</RouterLink>
-      <RouterLink to="/archive">归档</RouterLink>
-      <RouterLink to="/about">关于</RouterLink>
-    </nav>
+
+    <div class="topbar-right">
+      <nav class="nav-links editorial-nav-links">
+        <RouterLink to="/">首页</RouterLink>
+        <RouterLink to="/posts">文章</RouterLink>
+        <RouterLink to="/notes">随记</RouterLink>
+        <RouterLink to="/archive">归档</RouterLink>
+        <RouterLink to="/about">关于</RouterLink>
+      </nav>
+      <ThemeToggle />
+    </div>
   </header>
 </template>
