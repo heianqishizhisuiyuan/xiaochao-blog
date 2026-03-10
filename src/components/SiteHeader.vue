@@ -37,9 +37,7 @@ import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-v
           <span>关于</span>
         </RouterLink>
       </nav>
-      <div class="desktop-only"><ThemeMenu /></div>
+      <ThemeMenu />
     </div>
-
-    <div class="mobile-only"><ThemeMenu /></div>
   </header>
 </template>

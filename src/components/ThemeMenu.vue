@@ -51,9 +51,8 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="theme-menu">
-    <button class="theme-menu-btn" type="button" @click.stop="toggle" aria-label="主题">
+    <button class="theme-menu-btn icon-only" type="button" @click.stop="toggle" aria-label="主题">
       <el-icon><component :is="current.icon" /></el-icon>
-      <span class="theme-menu-label">{{ current.label }}</span>
     </button>
 
     <div v-if="open" class="theme-menu-pop">
