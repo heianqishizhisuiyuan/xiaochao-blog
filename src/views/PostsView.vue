@@ -87,7 +87,7 @@ const totalReadingMinutes = computed(() => {
           <div class="section-kicker">筛选一下</div>
           <p class="filter-intro">如果你已经知道自己想看什么，可以直接搜标题、摘要或标签；如果没有，就先按分类慢慢翻。</p>
           <el-input v-model="keyword" placeholder="搜索标题、摘要、标签..." clearable size="large" />
-          <div class="tag-row filter-row">
+          <div class="tag-row filter-row chip-scroll">
             <button
               class="filter-chip"
               :class="{ active: activeCategory === '全部' }"
