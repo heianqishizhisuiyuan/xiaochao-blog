@@ -33,16 +33,6 @@ const latestNotes = computed(() => {
 
     <main class="content-layout editorial-content-layout home-layout">
       <section>
-        <header class="glass-panel home-intro-card">
-          <div class="section-kicker">个人博客</div>
-          <h1 class="home-title">最近写下来的文章与随记</h1>
-          <p class="home-lead">{{ siteMeta.description }}</p>
-          <div class="home-entry-actions">
-            <RouterLink to="/posts" class="section-link">文章</RouterLink>
-            <RouterLink to="/archive" class="section-link">归档</RouterLink>
-            <RouterLink to="/notes" class="section-link">随记</RouterLink>
-          </div>
-        </header>
 
         <section class="section-head compact-section-head">
           <div>
