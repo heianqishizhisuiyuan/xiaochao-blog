@@ -3,7 +3,6 @@ import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { categories, popularTags, recentPosts, statusNoteMap } from '../data/content'
 import { Folder, PriceTag, Clock, CollectionTag, Search, Menu } from '@element-plus/icons-vue'
-import ArchiveTimeline from './ArchiveTimeline.vue'
 
 type TocItem = { id: string; title: string }
 
@@ -87,8 +86,6 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
         <a v-for="item in props.toc" :key="item.id" class="sidebar-toc-link" :href="`#${item.id}`">{{ item.title }}</a>
       </div>
     </section>
-
-    <ArchiveTimeline />
 
     <section class="glass-panel sidebar-card">
       <div class="section-kicker kicker-with-icon">

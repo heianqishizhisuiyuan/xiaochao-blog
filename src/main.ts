@@ -15,10 +15,5 @@ app.use(router)
 app.component('ElButton', ElButton)
 app.component('ElInput', ElInput)
 
-// Theme init
-import('./stores/theme').then(({ useThemeStore }) => {
-  const theme = useThemeStore(pinia)
-  theme.init()
-})
 
 app.mount('#app')

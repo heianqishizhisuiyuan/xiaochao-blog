@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import MobileDrawer from './MobileDrawer.vue'
-import ArchiveTimeline from './ArchiveTimeline.vue'
 import { categories, popularTags } from '../data/content'
 
 const props = defineProps<{ modelValue: boolean }>()
@@ -28,11 +27,6 @@ watch(
 
 <template>
   <MobileDrawer v-model="open" title="筛选与归档">
-    <div class="mobile-filter-section">
-      <div class="mobile-filter-title">按日期</div>
-      <ArchiveTimeline :compact="true" />
-    </div>
-
     <div class="mobile-filter-section">
       <div class="mobile-filter-title">分类</div>
       <div class="mobile-chip-row">
