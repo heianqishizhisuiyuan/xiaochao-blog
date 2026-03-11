@@ -366,6 +366,41 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   gap: 8px;
 }
+
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  margin: 0 10px;
+  background: var(--line);
+  opacity: 0.9;
+}
+
+/* Theme switch inside nav */
+.nav-theme-switch {
+  position: relative;
+}
+.nav-theme-switch .theme-switch {
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.62);
+  box-shadow: none;
+}
+:root[data-theme='dark'] .nav-theme-switch .theme-switch {
+  background: rgba(17,24,39,0.62);
+}
+.nav-theme-switch .theme-switch-text {
+  font-size: 0.86rem;
+}
+.nav-theme-switch .theme-switch-track {
+  width: 42px;
+  height: 24px;
+}
+.nav-theme-switch .theme-switch-thumb {
+  width: 20px;
+  height: 20px;
+}
+:root[data-theme='dark'] .nav-theme-switch .theme-switch-thumb {
+  transform: translateX(18px);
+}
 .nav-item .el-icon {
   font-size: 1.05rem;
   opacity: 0.9;

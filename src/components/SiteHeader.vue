@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { siteMeta } from '../data/content'
-import ThemeMenu from './ThemeMenu.vue'
+import ThemeSwitchFloat from './ThemeSwitchFloat.vue'
 import MobileNavDrawer from './MobileNavDrawer.vue'
-import MobileThemeDrawer from './MobileThemeDrawer.vue'
 import MobileFiltersDrawer from './MobileFiltersDrawer.vue'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { House, Document, Notebook, Calendar, User, Menu, Filter, Brush } from '@element-plus/icons-vue'
+import { House, Document, Notebook, Calendar, User, Menu, Filter } from '@element-plus/icons-vue'
 
 const navOpen = ref(false)
-const themeOpen = ref(false)
 const filtersOpen = ref(false)
 
 const route = useRoute()
@@ -48,6 +46,8 @@ const isHome = computed(() => route.path === '/')
           <el-icon><User /></el-icon>
           <span>关于</span>
         </RouterLink>
+        <div class="nav-divider" aria-hidden="true" />
+        <ThemeSwitchFloat class="nav-theme-switch" />
       </nav>
 
       <!-- Mobile actions (not on home; home only keeps the theme switch) -->
@@ -55,21 +55,15 @@ const isHome = computed(() => route.path === '/')
         <button class="icon-action" type="button" @click="filtersOpen = true" aria-label="筛选与归档">
           <el-icon><Filter /></el-icon>
         </button>
-        <button class="icon-action" type="button" @click="themeOpen = true" aria-label="主题">
-          <el-icon><Brush /></el-icon>
-        </button>
         <button class="icon-action" type="button" @click="navOpen = true" aria-label="导航">
           <el-icon><Menu /></el-icon>
         </button>
       </div>
 
-      <!-- Desktop theme -->
-      <div v-if="!isHome" class="desktop-only"><ThemeMenu /></div>
     </div>
 
     <!-- Mobile drawers -->
     <MobileNavDrawer v-model="navOpen" />
-    <MobileThemeDrawer v-model="themeOpen" />
     <MobileFiltersDrawer v-model="filtersOpen" />
   </header>
 </template>

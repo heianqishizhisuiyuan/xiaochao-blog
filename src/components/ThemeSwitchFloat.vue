@@ -94,11 +94,7 @@ const toggle = async () => {
 </script>
 
 <template>
-  <div
-    ref="elRef"
-    class="theme-float"
-    :style="{ left: `${posLeft}px`, top: `${posTop}px` }"
-  >
+  <div ref="elRef" class="theme-float" :style="{ left: `${posLeft}px`, top: `${posTop}px` }">
     <label class="theme-switch" aria-label="夜读模式">
       <input class="theme-switch-input" type="checkbox" :checked="isDark" @change="toggle" />
       <span class="theme-switch-track" aria-hidden="true">
