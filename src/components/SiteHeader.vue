@@ -46,9 +46,8 @@ const isHome = computed(() => route.path === '/')
           <el-icon><User /></el-icon>
           <span>关于</span>
         </RouterLink>
-        <div class="nav-divider" aria-hidden="true" />
-        <ThemeSwitchFloat class="nav-theme-switch" />
       </nav>
+      <ThemeSwitchFloat class="nav-theme-switch" />
 
       <!-- Mobile actions (not on home; home only keeps the theme switch) -->
       <div v-if="!isHome" class="mobile-only mobile-top-actions">
