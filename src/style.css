@@ -209,36 +209,7 @@ a { color: inherit; text-decoration: none; }
   .desktop-only { display: none; }
 }
 
-.mobile-top-actions {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-}
-.icon-action {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  border: 1px solid rgba(15,23,42,0.08);
-  background: rgba(255,255,255,0.14);
-  color: var(--ink-soft);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 120ms ease, background-color 180ms ease, border-color 180ms ease;
-}
-.icon-action .el-icon { font-size: 1.05rem; }
-.icon-action:hover {
-  background: rgba(255,255,255,0.22);
-  border-color: rgba(15,23,42,0.12);
-}
-.icon-action:active {
-  transform: scale(0.98);
-}
-:root[data-theme='dark'] .icon-action {
-  background: rgba(17,24,39,0.34);
-  border-color: rgba(148,163,184,0.14);
-}
+/* (removed) mobile top action circles */
 
 .mobile-drawer {
   position: fixed;

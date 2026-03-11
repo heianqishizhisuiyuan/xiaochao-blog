@@ -5,7 +5,7 @@ import MobileNavDrawer from './MobileNavDrawer.vue'
 import MobileFiltersDrawer from './MobileFiltersDrawer.vue'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { House, Document, Notebook, Calendar, User, Menu, Filter } from '@element-plus/icons-vue'
+import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-vue'
 
 const navOpen = ref(false)
 const filtersOpen = ref(false)
@@ -49,15 +49,6 @@ const isHome = computed(() => route.path === '/')
       </nav>
       <ThemeSwitchFloat class="nav-theme-switch" />
 
-      <!-- Mobile actions (not on home; home only keeps the theme switch) -->
-      <div v-if="!isHome" class="mobile-only mobile-top-actions">
-        <button class="icon-action" type="button" @click="filtersOpen = true" aria-label="筛选与归档">
-          <el-icon><Filter /></el-icon>
-        </button>
-        <button class="icon-action" type="button" @click="navOpen = true" aria-label="导航">
-          <el-icon><Menu /></el-icon>
-        </button>
-      </div>
 
     </div>
 
