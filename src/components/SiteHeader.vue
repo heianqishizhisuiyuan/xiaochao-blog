@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { siteMeta } from '../data/content'
-import ThemeSwitchFloat from './ThemeSwitchFloat.vue'
 import MobileNavDrawer from './MobileNavDrawer.vue'
 import MobileFiltersDrawer from './MobileFiltersDrawer.vue'
 import { computed, ref } from 'vue'
@@ -47,9 +46,6 @@ const isHome = computed(() => route.path === '/')
           <span>关于</span>
         </RouterLink>
       </nav>
-      <ThemeSwitchFloat class="nav-theme-switch" />
-
-
     </div>
 
     <!-- Mobile drawers -->
