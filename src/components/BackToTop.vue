@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { ArrowUp } from '@element-plus/icons-vue'
 
 const visible = ref(false)
@@ -17,7 +18,8 @@ onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
 })
 
-const show = computed(() => visible.value)
+const route = useRoute()
+const show = computed(() => visible.value && route.path !== '/')
 
 const goTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' })

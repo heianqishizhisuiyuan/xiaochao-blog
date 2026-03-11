@@ -4,12 +4,16 @@ import ThemeMenu from './ThemeMenu.vue'
 import MobileNavDrawer from './MobileNavDrawer.vue'
 import MobileThemeDrawer from './MobileThemeDrawer.vue'
 import MobileFiltersDrawer from './MobileFiltersDrawer.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { House, Document, Notebook, Calendar, User, Menu, Filter, Brush } from '@element-plus/icons-vue'
 
 const navOpen = ref(false)
 const themeOpen = ref(false)
 const filtersOpen = ref(false)
+
+const route = useRoute()
+const isHome = computed(() => route.path === '/')
 </script>
 
 <template>
@@ -22,8 +26,8 @@ const filtersOpen = ref(false)
     </RouterLink>
 
     <div class="topbar-right">
-      <!-- Desktop nav -->
-      <nav class="nav-links editorial-nav-links desktop-only">
+      <!-- Desktop nav (and home mobile nav) -->
+      <nav class="nav-links editorial-nav-links" :class="{ 'desktop-only': !isHome }">
         <RouterLink to="/" class="nav-item">
           <el-icon><House /></el-icon>
           <span>首页</span>
@@ -46,8 +50,8 @@ const filtersOpen = ref(false)
         </RouterLink>
       </nav>
 
-      <!-- Mobile actions -->
-      <div class="mobile-only mobile-top-actions">
+      <!-- Mobile actions (not on home; home only keeps the theme switch) -->
+      <div v-if="!isHome" class="mobile-only mobile-top-actions">
         <button class="icon-action" type="button" @click="filtersOpen = true" aria-label="筛选与归档">
           <el-icon><Filter /></el-icon>
         </button>
@@ -60,7 +64,7 @@ const filtersOpen = ref(false)
       </div>
 
       <!-- Desktop theme -->
-      <div class="desktop-only"><ThemeMenu /></div>
+      <div v-if="!isHome" class="desktop-only"><ThemeMenu /></div>
     </div>
 
     <!-- Mobile drawers -->
