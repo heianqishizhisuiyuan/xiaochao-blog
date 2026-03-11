@@ -18,7 +18,6 @@ const filtersOpen = ref(false)
       <div class="brand-mark">超</div>
       <div>
         <div class="brand-title">{{ siteMeta.name }}</div>
-        <div class="brand-sub">{{ siteMeta.tagline }}</div>
       </div>
     </RouterLink>
 

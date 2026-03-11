@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { ArrowRight } from '@element-plus/icons-vue'
 import SiteFooter from '../components/SiteFooter.vue'
 import SiteHeader from '../components/SiteHeader.vue'
 import SiteSidebar from '../components/SiteSidebar.vue'
@@ -34,21 +35,20 @@ const latestNotes = computed(() => {
       <section>
         <header class="glass-panel home-intro-card">
           <div class="section-kicker">个人博客</div>
-          <h1 class="home-title">{{ siteMeta.name }}</h1>
-          <p class="home-lead">{{ siteMeta.tagline }}</p>
+          <h1 class="home-title">最近写下来的文章与随记</h1>
+          <p class="home-lead">{{ siteMeta.description }}</p>
           <div class="home-entry-actions">
-            <RouterLink to="/posts" class="section-link">去文章列表 →</RouterLink>
-            <RouterLink to="/archive" class="section-link">按时间归档 →</RouterLink>
-            <RouterLink to="/notes" class="section-link">最近随记 →</RouterLink>
+            <RouterLink to="/posts" class="section-link">文章</RouterLink>
+            <RouterLink to="/archive" class="section-link">归档</RouterLink>
+            <RouterLink to="/notes" class="section-link">随记</RouterLink>
           </div>
         </header>
 
         <section class="section-head compact-section-head">
           <div>
-            <div class="section-kicker">最近</div>
             <h2>最近更新</h2>
           </div>
-          <RouterLink to="/posts" class="section-link">查看全部 →</RouterLink>
+          <RouterLink to="/posts" class="section-link">查看全部</RouterLink>
         </section>
 
         <section class="glass-panel home-feed-card">
@@ -64,7 +64,9 @@ const latestNotes = computed(() => {
                     <span class="meta-chip">{{ post.readingTime }}</span>
                   </div>
                 </div>
-                <span class="post-compact-arrow">→</span>
+                <span class="post-compact-arrow" aria-hidden="true">
+                  <el-icon><ArrowRight /></el-icon>
+                </span>
               </RouterLink>
             </li>
           </ul>
@@ -95,7 +97,7 @@ const latestNotes = computed(() => {
         <section v-if="latestNotes.length" class="section-head">
           <div>
             <div class="section-kicker">随记</div>
-            <h2>随手记（最近）</h2>
+            <h2>最近随记</h2>
           </div>
           <RouterLink to="/notes" class="section-link">去随记页 →</RouterLink>
         </section>
