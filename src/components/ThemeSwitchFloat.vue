@@ -38,10 +38,17 @@ const lockToCorner = (target: 'tr' | 'bl') => {
 }
 
 const onResize = () => {
+  // If embedded in nav, do nothing.
+  const el = elRef.value
+  if (el && el.closest('.nav-theme-switch')) return
   lockToCorner(corner.value)
 }
 
 onMounted(() => {
+  const el = elRef.value
+  // If embedded in nav, don't auto-position.
+  if (el && el.closest('.nav-theme-switch')) return
+
   // initial position
   nextTick(() => lockToCorner(corner.value))
   window.addEventListener('resize', onResize)
@@ -54,6 +61,13 @@ onBeforeUnmount(() => {
 const toggle = async () => {
   const el = elRef.value
   if (!el) return
+
+  // If embedded in nav, just switch theme (no travel animation).
+  if (el.closest('.nav-theme-switch')) {
+    themeStore.setTheme(isDark.value ? 'cool' : 'dark')
+    corner.value = isDark.value ? 'tr' : 'bl'
+    return
+  }
 
   const rect = el.getBoundingClientRect()
   const from = { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
@@ -94,7 +108,11 @@ const toggle = async () => {
 </script>
 
 <template>
-  <div ref="elRef" class="theme-float" :style="{ left: `${posLeft}px`, top: `${posTop}px` }">
+  <div
+    ref="elRef"
+    class="theme-float"
+    :style="elRef && elRef.closest('.nav-theme-switch') ? {} : { left: `${posLeft}px`, top: `${posTop}px` }"
+  >
     <label class="theme-switch" aria-label="夜读模式">
       <input class="theme-switch-input" type="checkbox" :checked="isDark" @change="toggle" />
       <span class="theme-switch-track" aria-hidden="true">

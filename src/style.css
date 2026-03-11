@@ -417,6 +417,12 @@ a { color: inherit; text-decoration: none; }
   position: fixed;
   z-index: 130;
 }
+
+/* when embedded in nav, behave like an inline element */
+.nav-theme-switch.theme-float {
+  position: static;
+  z-index: auto;
+}
 .theme-switch {
   display: inline-flex;
   align-items: center;
