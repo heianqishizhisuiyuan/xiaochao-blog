@@ -2,15 +2,11 @@
 import { siteMeta } from '../data/content'
 import MobileNavDrawer from './MobileNavDrawer.vue'
 import MobileFiltersDrawer from './MobileFiltersDrawer.vue'
-import { computed, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref } from 'vue'
 import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-vue'
 
 const navOpen = ref(false)
 const filtersOpen = ref(false)
-
-const route = useRoute()
-const isHome = computed(() => route.path === '/')
 </script>
 
 <template>
@@ -23,8 +19,8 @@ const isHome = computed(() => route.path === '/')
     </RouterLink>
 
     <div class="topbar-right">
-      <!-- Desktop nav (and home mobile nav) -->
-      <nav class="nav-links editorial-nav-links" :class="{ 'desktop-only': !isHome }">
+      <!-- Primary nav (responsive) -->
+      <nav class="nav-links editorial-nav-links">
         <RouterLink to="/" class="nav-item">
           <el-icon><House /></el-icon>
           <span>首页</span>
