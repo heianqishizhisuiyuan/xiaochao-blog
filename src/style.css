@@ -154,8 +154,9 @@ a { color: inherit; text-decoration: none; }
 
 /* Use drawer navigation for tablet+mobile to avoid cramped multi-row header nav */
 @media (max-width: 1080px) {
-  .mobile-only { display: inline-flex; }
-  .desktop-only { display: none; }
+  /* !important because .nav-links sets display:flex and can override in the built CSS order */
+  .mobile-only { display: inline-flex !important; }
+  .desktop-only { display: none !important; }
 }
 
 /* (removed) mobile top action circles */
