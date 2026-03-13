@@ -1386,9 +1386,19 @@ a { color: inherit; text-decoration: none; }
     width: 100%;
     justify-content: flex-start;
   }
+
+  /* Make header nav behave like a single-row strip on tablets too (720px~1080px)
+     to avoid the awkward multi-row compression. */
   .nav-links {
     width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
   }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-item { flex: 0 0 auto; }
+  .nav-item span { white-space: nowrap; }
 }
 
 @media (max-width: 720px) {
