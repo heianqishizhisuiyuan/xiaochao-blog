@@ -3,7 +3,7 @@ import { siteMeta } from '../data/content'
 import MobileNavDrawer from './MobileNavDrawer.vue'
 import MobileFiltersDrawer from './MobileFiltersDrawer.vue'
 import { ref } from 'vue'
-import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-vue'
+import { House, Document, Notebook, Calendar, User, Menu } from '@element-plus/icons-vue'
 
 const navOpen = ref(false)
 const filtersOpen = ref(false)
@@ -19,8 +19,13 @@ const filtersOpen = ref(false)
     </RouterLink>
 
     <div class="topbar-right">
-      <!-- Primary nav (responsive) -->
-      <nav class="nav-links editorial-nav-links">
+      <!-- Tablet/Mobile: use a clean drawer menu instead of squeezing the inline nav -->
+      <button class="icon-btn mobile-only nav-toggle" type="button" aria-label="打开导航" @click="navOpen = true">
+        <el-icon><Menu /></el-icon>
+      </button>
+
+      <!-- Desktop nav -->
+      <nav class="nav-links editorial-nav-links desktop-only">
         <RouterLink to="/" class="nav-item">
           <el-icon><House /></el-icon>
           <span>首页</span>
