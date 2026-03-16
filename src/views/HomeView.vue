@@ -68,7 +68,7 @@ const latestNotes = computed(() => {
           </div>
         </section>
 
-        <section v-if="featuredPosts.length" class="home-featured-grid">
+        <section v-if="featuredPosts.length" class="card-grid home-featured-grid">
           <article v-for="post in featuredPosts" :key="post.slug" class="glass-panel featured-mini-card">
             <div class="section-kicker">{{ post.category }}</div>
             <h3 class="featured-mini-title">
@@ -90,7 +90,7 @@ const latestNotes = computed(() => {
           <RouterLink to="/notes" class="section-link">去随记页 →</RouterLink>
         </section>
 
-        <section v-if="latestNotes.length" class="home-notes-grid">
+        <section v-if="latestNotes.length" class="card-grid home-notes-grid">
           <article v-for="note in latestNotes" :key="note.slug" class="glass-panel note-mini-card">
             <div class="section-kicker">{{ note.title }}</div>
             <p class="note-mini-summary">{{ note.summary }}</p>

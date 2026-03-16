@@ -45,7 +45,7 @@ const totalReadingMinutes = computed(() => {
         </div>
 
 
-        <div v-if="filteredPosts.length" class="post-list-grid editorial-post-list-grid">
+        <div v-if="filteredPosts.length" class="card-grid post-list-grid editorial-post-list-grid">
           <PostCard v-for="post in filteredPosts" :key="post.slug" :post="post" />
         </div>
 

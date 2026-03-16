@@ -28,7 +28,7 @@ useSeo({
           </div>
         </div>
 
-        <div class="notes-grid editorial-notes-grid">
+        <div class="card-grid notes-grid editorial-notes-grid">
           <article v-for="note in notes" :key="note.slug" class="glass-panel note-entry-card editorial-note-card">
             <div class="section-kicker">{{ note.title }}</div>
             <p class="note-entry-summary">{{ note.summary }}</p>
