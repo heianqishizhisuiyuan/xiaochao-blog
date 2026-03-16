@@ -44,7 +44,7 @@ useSeo({
         </section>
       </article>
 
-      <SiteSidebar />
+      <SiteSidebar :collapseOnNarrow="true" />
     </main>
 
     <main v-else class="subpage-wrap">

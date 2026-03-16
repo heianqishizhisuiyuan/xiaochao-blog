@@ -56,7 +56,7 @@ const totalReadingMinutes = computed(() => {
         </div>
       </section>
 
-      <SiteSidebar />
+      <SiteSidebar :collapseOnNarrow="true" />
     </main>
 
     <SiteFooter />

@@ -43,7 +43,7 @@ useSeo({
         </div>
       </section>
 
-      <SiteSidebar />
+      <SiteSidebar :collapseOnNarrow="true" />
     </main>
 
     <SiteFooter />
