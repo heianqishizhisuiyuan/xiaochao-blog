@@ -11,6 +11,8 @@ const props = defineProps<{
   hideSearch?: boolean
   /** On tablet/mobile, show sidebar content as a collapsible section below main content instead of hiding it. */
   collapseOnNarrow?: boolean
+  /** For pages like Home: show normal sidebar (not empty) even if search is hidden. */
+  showSidebarCards?: boolean
 }>()
 
 const route = useRoute()
@@ -45,7 +47,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
   <aside class="sidebar-stack editorial-sidebar-stack sidebar-nav-layout">
 
     <!-- Narrow screens: render sidebar content as a single collapsible block (more natural than disappearing). -->
-    <details v-if="props.collapseOnNarrow" class="glass-panel sidebar-card sidebar-collapsible">
+    <details v-if="props.collapseOnNarrow" class="glass-panel sidebar-card sidebar-collapsible" open>
       <summary class="sidebar-collapsible-summary">更多信息（分类 / 标签 / 最近更新）</summary>
       <div class="sidebar-collapsible-body">
 
@@ -59,7 +61,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       </div>
     </section>
 
-    <section class="glass-panel sidebar-card">
+    <section v-if="props.showSidebarCards !== false" class="glass-panel sidebar-card">
       <div class="section-kicker kicker-with-icon">
         <el-icon><Folder /></el-icon>
         <span>按分类找</span>
@@ -74,7 +76,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       </ul>
     </section>
 
-    <section class="glass-panel sidebar-card">
+    <section v-if="props.showSidebarCards !== false" class="glass-panel sidebar-card">
       <div class="section-kicker kicker-with-icon">
         <el-icon><CollectionTag /></el-icon>
         <span>常用标签</span>
@@ -95,7 +97,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       <RouterLink to="/posts" class="section-link sidebar-inline-link">更多标签/筛选 →</RouterLink>
     </section>
 
-    <section class="glass-panel sidebar-card">
+    <section v-if="props.showSidebarCards !== false" class="glass-panel sidebar-card">
       <div class="section-kicker kicker-with-icon">
         <el-icon><PriceTag /></el-icon>
         <span>标签（更多）</span>
@@ -113,7 +115,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       </div>
     </section>
 
-    <section class="glass-panel sidebar-card">
+    <section v-if="props.showSidebarCards !== false" class="glass-panel sidebar-card">
       <div class="section-kicker kicker-with-icon">
         <el-icon><Clock /></el-icon>
         <span>最近更新</span>

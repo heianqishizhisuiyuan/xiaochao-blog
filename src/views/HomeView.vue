@@ -102,7 +102,7 @@ const latestNotes = computed(() => {
         </section>
       </section>
 
-      <SiteSidebar :hideSearch="true" />
+      <SiteSidebar :hideSearch="true" :collapseOnNarrow="true" :showSidebarCards="true" />
     </main>
 
     <SiteFooter />
