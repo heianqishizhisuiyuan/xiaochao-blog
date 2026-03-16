@@ -738,6 +738,7 @@ a { color: inherit; text-decoration: none; }
   .content-layout {
     grid-template-columns: minmax(0, 1fr);
   }
+  /* On narrow screens, hide the right sidebar entirely (prevents crowding/overflow). */
   .editorial-sidebar-stack,
   .sidebar-nav-layout {
     display: none;
@@ -1492,6 +1493,18 @@ a { color: inherit; text-decoration: none; }
   .content-layout {
     width: 100%;
     overflow-x: hidden;
+  }
+
+  /* Mobile article typography: reduce crowding */
+  .article-body {
+    gap: 28px;
+  }
+  .article-section h2 {
+    font-size: 1.22rem;
+  }
+  .article-body p {
+    font-size: 1.0rem;
+    line-height: 1.9;
   }
 
   .topbar {

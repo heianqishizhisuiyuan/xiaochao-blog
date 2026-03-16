@@ -123,7 +123,7 @@ useSeo({
         </section>
       </article>
 
-      <SiteSidebar :toc="toc" :collapseOnNarrow="true" />
+      <SiteSidebar :toc="toc" :collapseOnNarrow="true" :showSidebarCards="false" />
     </main>
 
     <main v-else class="subpage-wrap">
