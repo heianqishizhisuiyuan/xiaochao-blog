@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { siteMeta } from '../data/content'
-import MobileNavDrawer from './MobileNavDrawer.vue'
-import MobileFiltersDrawer from './MobileFiltersDrawer.vue'
-import { ref } from 'vue'
-import { House, Document, Notebook, Calendar, User, Menu } from '@element-plus/icons-vue'
-
-const navOpen = ref(false)
-const filtersOpen = ref(false)
+import { House, Document, Notebook, Calendar, User } from '@element-plus/icons-vue'
 </script>
 
 <template>
@@ -19,13 +13,7 @@ const filtersOpen = ref(false)
     </RouterLink>
 
     <div class="topbar-right">
-      <!-- Tablet/Mobile: use a clean drawer menu instead of squeezing the inline nav -->
-      <button class="icon-btn mobile-only nav-toggle" type="button" aria-label="打开导航" @click="navOpen = true">
-        <el-icon><Menu /></el-icon>
-      </button>
-
-      <!-- Desktop nav -->
-      <nav class="nav-links editorial-nav-links desktop-only">
+      <nav class="nav-links editorial-nav-links">
         <RouterLink to="/" class="nav-item">
           <el-icon><House /></el-icon>
           <span>首页</span>
@@ -48,9 +36,5 @@ const filtersOpen = ref(false)
         </RouterLink>
       </nav>
     </div>
-
-    <!-- Mobile drawers -->
-    <MobileNavDrawer v-model="navOpen" />
-    <MobileFiltersDrawer v-model="filtersOpen" />
   </header>
 </template>

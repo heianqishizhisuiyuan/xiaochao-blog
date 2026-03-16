@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { categories, popularTags, recentPosts, statusNoteMap } from '../data/content'
-import { Folder, PriceTag, Clock, CollectionTag, Search, Menu } from '@element-plus/icons-vue'
+import { Folder, PriceTag, Clock, CollectionTag, Menu } from '@element-plus/icons-vue'
 
 type TocItem = { id: string; title: string }
 
@@ -12,31 +12,9 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
-const router = useRouter()
-
 const upcoming = statusNoteMap['upcoming-notes']
 const reading = statusNoteMap['currently-reading']
 const quick = statusNoteMap['quick-notes']
-
-const sidebarSearch = ref('')
-
-watch(
-  () => route.query,
-  (query) => {
-    sidebarSearch.value = typeof query.q === 'string' ? query.q : ''
-  },
-  { immediate: true }
-)
-
-const submitSearch = () => {
-  const q = sidebarSearch.value.trim()
-  router.push({
-    path: '/posts',
-    query: {
-      ...(q ? { q } : {})
-    }
-  })
-}
 
 
 const categoryLinks = computed(() =>
@@ -63,19 +41,6 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
 
 <template>
   <aside class="sidebar-stack editorial-sidebar-stack sidebar-nav-layout">
-    <section v-if="!props.hideSearch" class="glass-panel sidebar-card sidebar-search-card">
-      <div class="section-kicker kicker-with-icon">
-        <el-icon><Search /></el-icon>
-        <span>搜索</span>
-      </div>
-      <form class="sidebar-search" @submit.prevent="submitSearch">
-        <input v-model="sidebarSearch" class="sidebar-search-input" placeholder="搜标题 / 摘要 / 标签…" />
-        <button class="sidebar-search-btn" type="submit" aria-label="搜索">
-          <el-icon><Search /></el-icon>
-        </button>
-      </form>
-      <div class="sidebar-search-hint">按回车直接跳到文章列表筛选。</div>
-    </section>
 
     <section v-if="props.toc && props.toc.length > 1" class="glass-panel sidebar-card sidebar-toc-card">
       <div class="section-kicker kicker-with-icon">
