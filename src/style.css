@@ -1233,6 +1233,8 @@ a { color: inherit; text-decoration: none; }
   margin-top: 28px;
   display: grid;
   gap: 34px;
+  min-width: 0;
+  overflow-x: hidden;
 }
 .article-section {
   scroll-margin-top: 110px;
@@ -1246,6 +1248,8 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink-soft);
   font-size: 1.04rem;
   line-height: 2;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .article-section p + p {
   margin-top: 16px;
