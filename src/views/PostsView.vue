@@ -30,9 +30,6 @@ const filteredPosts = computed(() => {
   })
 })
 
-const totalReadingMinutes = computed(() => {
-  return filteredPosts.value.reduce((sum, post) => sum + Number.parseInt(post.readingTime, 10), 0)
-})
 </script>
 
 <template>
@@ -41,24 +38,6 @@ const totalReadingMinutes = computed(() => {
 
     <main class="content-layout editorial-content-layout">
       <section>
-        <div class="subpage-head compact posts-head editorial-posts-head">
-          <div>
-            <h1>最近写下来的文章</h1>
-            <p>这页不想做成内容货架，更像一个清楚的入口：你可以很快知道这篇写什么、现在值不值得读，以及要花多长时间。</p>
-          </div>
-          <div class="posts-overview glass-panel editorial-overview-card">
-            <div>
-              <strong>{{ filteredPosts.length }}</strong>
-              <span>当前可读文章</span>
-            </div>
-            <div>
-              <strong>{{ totalReadingMinutes }}</strong>
-              <span>大致阅读分钟</span>
-            </div>
-          </div>
-        </div>
-
-
         <div v-if="filteredPosts.length" class="card-grid post-list-grid editorial-post-list-grid">
           <PostCard v-for="post in filteredPosts" :key="post.slug" :post="post" />
         </div>
