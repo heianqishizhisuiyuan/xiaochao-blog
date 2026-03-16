@@ -6,6 +6,9 @@
 // - bold: **text**
 // - leading dash list item: "- xxx"
 // Everything else is escaped to prevent HTML injection.
+//
+// NOTE: We implement a tiny parser (instead of simple regex) for links/images
+// so URLs containing parentheses "(...)" still work.
 
 function escapeHtml(input: string) {
   return input
@@ -23,6 +26,76 @@ function safeUrl(raw: string) {
   return '#'
 }
 
+function parseBracket(text: string, start: number, open: string, close: string) {
+  if (text[start] !== open) return null
+  const end = text.indexOf(close, start + 1)
+  if (end === -1) return null
+  return { value: text.slice(start + 1, end), end }
+}
+
+function parseParensBalanced(text: string, start: number) {
+  if (text[start] !== '(') return null
+  let depth = 0
+  for (let i = start; i < text.length; i++) {
+    const ch = text[i]
+    if (ch === '(') depth++
+    else if (ch === ')') {
+      depth--
+      if (depth === 0) {
+        return { value: text.slice(start + 1, i), end: i }
+      }
+    }
+  }
+  return null
+}
+
+function renderLinksAndImages(input: string) {
+  let out = ''
+  let i = 0
+
+  while (i < input.length) {
+    // image: ![alt](src)
+    if (input.startsWith('![', i)) {
+      const altPart = parseBracket(input, i + 1, '[', ']')
+      if (altPart && input[altPart.end + 1] === '(') {
+        const urlPart = parseParensBalanced(input, altPart.end + 1)
+        if (urlPart) {
+          const alt = altPart.value
+          const src = urlPart.value
+          const safeSrc = escapeHtml(safeUrl(String(src)))
+          const safeAlt = escapeHtml(String(alt ?? ''))
+          out += `<img class="md-img" src="${safeSrc}" alt="${safeAlt}" loading="lazy" />`
+          i = urlPart.end + 1
+          continue
+        }
+      }
+    }
+
+    // link: [label](href)
+    if (input[i] === '[') {
+      const labelPart = parseBracket(input, i, '[', ']')
+      if (labelPart && input[labelPart.end + 1] === '(') {
+        const urlPart = parseParensBalanced(input, labelPart.end + 1)
+        if (urlPart) {
+          const label = labelPart.value
+          const href = urlPart.value
+          const safeHref = escapeHtml(safeUrl(String(href)))
+          const safeLabel = escapeHtml(String(label ?? ''))
+          const target = safeHref.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''
+          out += `<a class="md-link" href="${safeHref}"${target}>${safeLabel}</a>`
+          i = urlPart.end + 1
+          continue
+        }
+      }
+    }
+
+    out += escapeHtml(input[i] ?? '')
+    i++
+  }
+
+  return out
+}
+
 export function renderInlineMarkdown(raw: string) {
   const original = raw ?? ''
 
@@ -30,24 +103,8 @@ export function renderInlineMarkdown(raw: string) {
   const isDashItem = original.trim().startsWith('- ')
   const text = isDashItem ? original.trim().slice(2).trim() : original
 
-  // escape first, then add our limited tags
-  let html = escapeHtml(text)
-
-  // images: ![alt](src)
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_m, alt, src) => {
-    const safeSrc = escapeHtml(safeUrl(String(src)))
-    const safeAlt = escapeHtml(String(alt ?? ''))
-    return `<img class="md-img" src="${safeSrc}" alt="${safeAlt}" loading="lazy" />`
-  })
-
-  // links: [text](url)
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, label, href) => {
-    const safeHref = escapeHtml(safeUrl(String(href)))
-    const safeLabel = escapeHtml(String(label ?? ''))
-    // Always open external links in a new tab.
-    const target = safeHref.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''
-    return `<a class="md-link" href="${safeHref}"${target}>${safeLabel}</a>`
-  })
+  // render links/images + escape everything else
+  let html = renderLinksAndImages(text)
 
   // inline code: `code`
   html = html.replace(/`([^`]+)`/g, (_m, code) => `<code class="md-code">${escapeHtml(String(code))}</code>`)
