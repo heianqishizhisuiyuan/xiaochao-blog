@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import PostCard from '../components/PostCard.vue'
 import SiteFooter from '../components/SiteFooter.vue'
 import SiteHeader from '../components/SiteHeader.vue'
@@ -13,7 +14,21 @@ useSeo({
   path: '/posts'
 })
 
-const filteredPosts = computed(() => posts)
+const route = useRoute()
+
+const qCategory = computed(() => (typeof route.query.category === 'string' ? route.query.category : ''))
+const qTag = computed(() => (typeof route.query.tag === 'string' ? route.query.tag : ''))
+
+const filteredPosts = computed(() => {
+  const category = qCategory.value
+  const tag = qTag.value
+
+  return posts.filter((post) => {
+    const byCategory = !category || post.category === category
+    const byTag = !tag || post.tags.includes(tag)
+    return byCategory && byTag
+  })
+})
 
 const totalReadingMinutes = computed(() => {
   return filteredPosts.value.reduce((sum, post) => sum + Number.parseInt(post.readingTime, 10), 0)
