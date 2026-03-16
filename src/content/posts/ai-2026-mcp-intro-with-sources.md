@@ -123,6 +123,6 @@ MCP 的本质不是“又一个 AI 概念”，而是把“AI 接入真实系统
 ---
 
 ## 参考来源
-- Anthropic：Introducing the Model Context Protocol https://www.anthropic.com/news/model-context-protocol
-- MCP 官方组织/代码仓库（spec/SDK/servers 集合入口）https://github.com/modelcontextprotocol
-- MCP Servers 仓库（示例服务器集合）https://github.com/modelcontextprotocol/servers
+- [Anthropic：Introducing the Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
+- [MCP 官方组织/代码仓库（spec/SDK/servers 集合入口）](https://github.com/modelcontextprotocol)
+- [MCP Servers 仓库（示例服务器集合）](https://github.com/modelcontextprotocol/servers)

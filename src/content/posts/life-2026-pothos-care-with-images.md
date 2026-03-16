@@ -19,12 +19,13 @@ featured: true
 
 ---
 
-## 图片（2–3 张，已放到站点静态资源）
+## 图片（2–3 张）
 
-- 绿萝植株：`/plants/pothos-1.jpg`
-- 水培扦插与生根：`/plants/pothos-2.png`
+![绿萝植株](/plants/pothos-1.jpg)
 
-> 图片来源与许可见文末“参考来源/许可”。
+![水培扦插与生根](/plants/pothos-2.png)
+
+> 图片来源与许可见文末“参考来源 / 图片许可”。
 
 ---
 
@@ -136,5 +137,5 @@ featured: true
 ---
 
 ## 参考来源 / 图片许可
-- 图片 1：Wikimedia Commons — File:Pothos epipremnum aureus.jpg（文件页含许可信息与原始链接）https://commons.wikimedia.org/wiki/File:Pothos_epipremnum_aureus.jpg
-- 图片 2：Wikimedia Commons — File:Epipremnum Aureum (Devil's Ivy) cutting.png（文件页含作者/许可信息与原始链接）https://commons.wikimedia.org/wiki/File:Epipremnum_Aureum_(Devil%27s_Ivy)_cutting.png
+- [图片 1：Wikimedia Commons — File:Pothos epipremnum aureus.jpg（文件页含许可信息与原始链接）](https://commons.wikimedia.org/wiki/File:Pothos_epipremnum_aureus.jpg)
+- [图片 2：Wikimedia Commons — File:Epipremnum Aureum (Devil's Ivy) cutting.png（文件页含作者/许可信息与原始链接）](https://commons.wikimedia.org/wiki/File:Epipremnum_Aureum_(Devil%27s_Ivy)_cutting.png)

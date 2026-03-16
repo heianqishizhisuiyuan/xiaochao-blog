@@ -206,6 +206,6 @@ const {
 ---
 
 ## 参考来源
-- VeeValidate 官方文档 https://vee-validate.logaretm.com/
-- VeeValidate + Yup（Typed schema）文档与示例（见 @vee-validate/yup）https://vee-validate.logaretm.com/v4/guide/validation#yup
-- Yup 官方仓库/文档 https://github.com/jquense/yup
+- [VeeValidate 官方文档](https://vee-validate.logaretm.com/)
+- [VeeValidate + Yup（Typed schema）文档与示例（见 @vee-validate/yup）](https://vee-validate.logaretm.com/v4/guide/validation#yup)
+- [Yup 官方仓库/文档](https://github.com/jquense/yup)
