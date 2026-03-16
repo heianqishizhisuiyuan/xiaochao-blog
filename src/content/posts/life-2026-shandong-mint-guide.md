@@ -16,11 +16,10 @@ featured: true
 
 ## 图片（2–3 张）
 
-> 说明：你要求“高清实拍图片 + 来源说明”。我这边先放 **占位图**，等你提供实拍图后我会替换，并在文末写清来源（如：作者拍摄/拍摄日期/地点）。
+> 说明：图片来自 Wikimedia Commons，可复用授权；文末已附来源/作者/许可链接。
 
-- 薄荷整体：`/plants/mint-1.svg`
-- 生长阶段/细节：`/plants/mint-2.svg`
-- 养殖细节（盆土/修剪）：`/plants/mint-3.svg`
+- 薄荷整体：`/plants/mint-1.jpg`
+- 薄荷叶片细节：`/plants/mint-2.jpg`
 
 ## 1) 环境要求（结合山东四季）
 
@@ -109,5 +108,6 @@ featured: true
 
 ---
 
-图片来源说明（待补）：
-- 以上 3 张为占位图，待替换为“老板提供的山东家庭实拍图”。
+图片来源说明：
+- mint-1.jpg：Wikimedia Commons — File:Peppermint Plant.jpg（CC0 1.0）https://commons.wikimedia.org/wiki/File:Peppermint_Plant.jpg
+- mint-2.jpg：Wikimedia Commons — File:Mint leaves (Mentha spicata).jpg（CC BY-SA 4.0，作者：Commonists，来源：Own work）https://commons.wikimedia.org/wiki/File:Mint_leaves_(Mentha_spicata).jpg
