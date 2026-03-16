@@ -16,6 +16,7 @@ const readingMood = computed(() => {
 </script>
 
 <template>
+  <RouterLink :to="`/posts/${post.slug}`" class="card-link">
   <article class="glass-panel post-card editorial-post-card">
     <div class="post-note-row">
       <span class="post-note-chip">{{ readingMood }}</span>
@@ -37,7 +38,6 @@ const readingMood = computed(() => {
       </div>
       <div class="post-reading-hint">先看摘要，再决定是不是现在点开</div>
     </div>
-
-    <RouterLink :to="`/posts/${post.slug}`" class="post-link editorial-post-link">进去读这篇 →</RouterLink>
   </article>
+  </RouterLink>
 </template>

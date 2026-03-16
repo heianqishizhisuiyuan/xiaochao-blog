@@ -64,6 +64,20 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 
+/* Make whole cards clickable with consistent hover/focus */
+.card-link {
+  display: block;
+  border-radius: inherit;
+}
+.card-link:hover .glass-panel {
+  transform: translateY(-1px);
+}
+.card-link:focus-visible {
+  outline: 3px solid rgba(53, 92, 170, 0.35);
+  outline-offset: 3px;
+  border-radius: 24px;
+}
+
 .page-shell {
   min-height: 100vh;
   /* Keep header flush to the top while preserving side/bottom breathing room */
@@ -672,6 +686,13 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: minmax(0, 1fr) 320px;
   gap: 30px;
   padding-bottom: 46px;
+}
+
+/* Tablet and below: one-column content; sidebar content can be moved/hidden via components */
+@media (max-width: 1080px) {
+  .content-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 .post-list-grid,
 .notes-grid {

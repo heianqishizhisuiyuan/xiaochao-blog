@@ -9,6 +9,8 @@ type TocItem = { id: string; title: string }
 const props = defineProps<{
   toc?: TocItem[]
   hideSearch?: boolean
+  /** On tablet/mobile, show sidebar content as a collapsible section below main content instead of hiding it. */
+  collapseOnNarrow?: boolean
 }>()
 
 const route = useRoute()
@@ -41,6 +43,11 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
 
 <template>
   <aside class="sidebar-stack editorial-sidebar-stack sidebar-nav-layout">
+
+    <!-- Narrow screens: render sidebar content as a single collapsible block (more natural than disappearing). -->
+    <details v-if="props.collapseOnNarrow" class="glass-panel sidebar-card sidebar-collapsible">
+      <summary class="sidebar-collapsible-summary">更多信息（分类 / 标签 / 最近更新）</summary>
+      <div class="sidebar-collapsible-body">
 
     <section v-if="props.toc && props.toc.length > 1" class="glass-panel sidebar-card sidebar-toc-card">
       <div class="section-kicker kicker-with-icon">
@@ -149,5 +156,8 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       </ul>
       <RouterLink to="/notes" class="section-link sidebar-inline-link">去看全部随记 →</RouterLink>
     </section>
+      </div>
+    </details>
+
   </aside>
 </template>
