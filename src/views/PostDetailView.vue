@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { renderInlineMarkdown } from '../utils/inlineMarkdown'
 import { useRoute } from 'vue-router'
 import SiteFooter from '../components/SiteFooter.vue'
 import SiteHeader from '../components/SiteHeader.vue'
@@ -80,9 +81,12 @@ useSeo({
         <div class="article-body editorial-article-body">
           <section v-for="section in post.sections" :id="section.id" :key="section.id" class="article-section">
             <h2>{{ section.title }}</h2>
-            <p v-for="(paragraph, index) in section.paragraphs" :key="`${section.id}-${index}`">
-              {{ paragraph }}
-            </p>
+            <div
+              v-for="(paragraph, index) in section.paragraphs"
+              :key="`${section.id}-${index}`"
+              class="md-paragraph"
+              v-html="renderInlineMarkdown(paragraph)"
+            />
           </section>
         </div>
 

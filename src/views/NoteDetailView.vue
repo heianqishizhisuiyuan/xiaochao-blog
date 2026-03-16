@@ -6,6 +6,7 @@ import SiteHeader from '../components/SiteHeader.vue'
 import SiteSidebar from '../components/SiteSidebar.vue'
 import { useSeo } from '../composables/useSeo'
 import { statusNoteMap } from '../data/content'
+import { renderInlineMarkdown } from '../utils/inlineMarkdown'
 
 const route = useRoute()
 const note = computed(() => statusNoteMap[String(route.params.slug ?? '')])
@@ -38,9 +39,9 @@ useSeo({
 
         <section class="toc-box editorial-toc-box">
           <div class="section-kicker">这条随记里有什么</div>
-          <ul class="note-entry-list article-note-list">
-            <li v-for="item in note.items" :key="item">{{ item }}</li>
-          </ul>
+          <div class="note-entry-list article-note-list">
+            <div v-for="item in note.items" :key="item" class="md-paragraph" v-html="renderInlineMarkdown(item)" />
+          </div>
         </section>
       </article>
 
