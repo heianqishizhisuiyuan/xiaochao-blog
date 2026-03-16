@@ -1188,7 +1188,7 @@ a { color: inherit; text-decoration: none; }
   margin: 18px 0 14px;
 }
 .article-summary {
-  font-size: 1.08rem;
+  font-size: 1.02rem;
   color: var(--ink-soft);
   line-height: 1.9;
 }
@@ -1521,7 +1521,6 @@ a { color: inherit; text-decoration: none; }
   .topbar,
   .hero-copy,
   .hero-focus-card,
-  .article-shell,
   .about-card,
   .editorial-note-card,
   .post-card,
@@ -1529,6 +1528,11 @@ a { color: inherit; text-decoration: none; }
   .archive-year,
   .note-entry-card {
     padding: 16px;
+  }
+
+  /* Article detail: keep it even wider than other cards */
+  .article-shell {
+    padding: 14px;
   }
 
   .hero-copy h1,
