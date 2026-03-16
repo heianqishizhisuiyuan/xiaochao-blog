@@ -43,19 +43,19 @@ export const homeStatus = {
 
 export const categories = [
   {
-    name: '前端与页面',
-    slug: 'frontend-interaction',
-    desc: '主要写界面、信息层级、阅读体验和那些看似细小但很影响气质的取舍。'
+    name: 'AI相关',
+    slug: 'ai',
+    desc: '聚焦前端可落地的 AI 工具/协议/Agent/Skills：原理讲透、步骤可复现、附参考来源。'
   },
   {
-    name: '内容与结构',
-    slug: 'product-content',
-    desc: '写博客怎么组织、内容怎么长、首页和栏目为什么不该像货架。'
+    name: 'Vue相关',
+    slug: 'vue',
+    desc: 'Vue 3 + TypeScript 由简入难：真实场景、可运行代码、插件与排错经验。'
   },
   {
-    name: 'AI 与工作流',
-    slug: 'workflow-systems',
-    desc: '记录协作流程、系统搭建、长期维护，以及真正落地时的现实问题。'
+    name: '生活趣事',
+    slug: 'life',
+    desc: '山东家庭种植：四季适配、细节到位、配图并标注许可来源。'
   }
 ]
 
