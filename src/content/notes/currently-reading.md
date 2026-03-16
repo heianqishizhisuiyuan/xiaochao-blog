@@ -1,10 +1,10 @@
 ---
-title: 最近在看
-summary: 这些不是正式文章，更像最近反复回看、会影响我判断和页面气质的东西。
-type: currently-reading
-updatedAt: 2026-03-09
+title: 正在读什么
+type: reading
+updatedAt: 2026-03-16
+summary: 最近在认真补的内容。
 ---
 
-- 最近在反复看信息架构、阅读体验和个人博客设计。
-- 也在看怎么让一个站点既能长期写内容，又不会越来越重。
-- 也在留意哪些个人博客会让人想继续往下翻，而不是看两眼就退出。
+- MCP / Agent / Skills 的工程化落地
+- Vue 3 + TypeScript 的组件抽象方法
+- 家庭种植：阳台与庭院的长期养护
