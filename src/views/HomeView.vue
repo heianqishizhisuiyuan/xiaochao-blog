@@ -64,7 +64,6 @@ const latestNotes = computed(() => {
 
         <section v-if="featuredPosts.length" class="section-head">
           <div>
-            <div class="section-kicker">推荐</div>
             <h2>推荐先读</h2>
           </div>
         </section>
@@ -86,7 +85,6 @@ const latestNotes = computed(() => {
 
         <section v-if="latestNotes.length" class="section-head">
           <div>
-            <div class="section-kicker">随记</div>
             <h2>最近随记</h2>
           </div>
           <RouterLink to="/notes" class="section-link">去随记页 →</RouterLink>
