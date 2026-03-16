@@ -28,7 +28,6 @@ const totalReadingMinutes = computed(() => {
       <section>
         <div class="subpage-head compact posts-head editorial-posts-head">
           <div>
-            <div class="section-kicker">文章</div>
             <h1>最近写下来的文章</h1>
             <p>这页不想做成内容货架，更像一个清楚的入口：你可以很快知道这篇写什么、现在值不值得读，以及要花多长时间。</p>
           </div>
