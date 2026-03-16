@@ -8,10 +8,9 @@ type TocItem = { id: string; title: string }
 
 const props = defineProps<{
   toc?: TocItem[]
+  /** kept for compatibility; search UI已移除 */
   hideSearch?: boolean
-  /** On tablet/mobile, show sidebar content as a collapsible section below main content instead of hiding it. */
-  collapseOnNarrow?: boolean
-  /** For pages like Home: show normal sidebar (not empty) even if search is hidden. */
+  /** For pages like Home: show normal sidebar cards even if search is hidden. */
   showSidebarCards?: boolean
 }>()
 
@@ -19,7 +18,6 @@ const route = useRoute()
 const upcoming = statusNoteMap['upcoming-notes']
 const reading = statusNoteMap['currently-reading']
 const quick = statusNoteMap['quick-notes']
-
 
 const categoryLinks = computed(() =>
   categories.map((item) => ({
@@ -39,18 +37,11 @@ const tagLinks = computed(() =>
 const commonTags = computed(() => tagLinks.value.slice(0, 12))
 
 const routeFullPath = computed(() => route.fullPath)
-
 const isActiveQuery = (to: string) => routeFullPath.value === to
 </script>
 
 <template>
   <aside class="sidebar-stack editorial-sidebar-stack sidebar-nav-layout">
-
-    <!-- Narrow screens: render sidebar content as a single collapsible block (more natural than disappearing). -->
-    <details v-if="props.collapseOnNarrow" class="glass-panel sidebar-card sidebar-collapsible" open>
-      <summary class="sidebar-collapsible-summary">更多信息（分类 / 标签 / 最近更新）</summary>
-      <div class="sidebar-collapsible-body">
-
     <section v-if="props.toc && props.toc.length > 1" class="glass-panel sidebar-card sidebar-toc-card">
       <div class="section-kicker kicker-with-icon">
         <el-icon><Menu /></el-icon>
@@ -94,7 +85,7 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
           <span>{{ item.label }}</span>
         </RouterLink>
       </div>
-      <RouterLink to="/posts" class="section-link sidebar-inline-link">更多标签/筛选 →</RouterLink>
+      <RouterLink to="/posts" class="section-link sidebar-inline-link">更多标签/分类 →</RouterLink>
     </section>
 
     <section v-if="props.showSidebarCards !== false" class="glass-panel sidebar-card">
@@ -158,8 +149,5 @@ const isActiveQuery = (to: string) => routeFullPath.value === to
       </ul>
       <RouterLink to="/notes" class="section-link sidebar-inline-link">去看全部随记 →</RouterLink>
     </section>
-      </div>
-    </details>
-
   </aside>
 </template>

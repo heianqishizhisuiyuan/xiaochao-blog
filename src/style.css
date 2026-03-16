@@ -720,10 +720,14 @@ a { color: inherit; text-decoration: none; }
   padding-bottom: 46px;
 }
 
-/* Tablet and below: one-column content; sidebar content can be moved/hidden via components */
+/* Tablet and below: keep one-column reading */
 @media (max-width: 1080px) {
   .content-layout {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .editorial-sidebar-stack,
+  .sidebar-nav-layout {
+    display: none;
   }
 }
 .post-list-grid,
@@ -1415,10 +1419,10 @@ a { color: inherit; text-decoration: none; }
     grid-column: span 1;
   }
 
-  /* On narrow screens, sidebar becomes a collapsible block (rendered in component). */
+  /* Narrow screens: hide right sidebar to keep one-column reading */
   .editorial-sidebar-stack,
   .sidebar-nav-layout {
-    display: block;
+    display: none;
   }
 
   .topbar,
