@@ -59,7 +59,7 @@ export const categories = [
   }
 ]
 
-type Frontmatter = Record<string, string>
+type Frontmatter = Record<string, unknown>
 
 type StatusNote = {
   slug: string
@@ -90,6 +90,46 @@ const rawNoteModules = import.meta.glob('../content/notes/*.md', {
   import: 'default'
 }) as Record<string, string>
 
+function stripWrappingQuotes(value: string) {
+  const trimmed = value.trim()
+
+  if (
+    (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+    (trimmed.startsWith("'") && trimmed.endsWith("'"))
+  ) {
+    return trimmed.slice(1, -1).trim()
+  }
+
+  return trimmed
+}
+
+function parseTags(rawValue: string): string[] {
+  const value = rawValue.trim()
+
+  // Support JSON/YAML-like arrays: ["a","b"] / ['a', 'b'] / [a, b]
+  if (value.startsWith('[') && value.endsWith(']')) {
+    const inner = value.slice(1, -1).trim()
+
+    if (!inner) {
+      return []
+    }
+
+    return inner
+      .split(',')
+      .map((item) => stripWrappingQuotes(item))
+      .map((item) => item.trim())
+      .filter(Boolean)
+  }
+
+  // Support comma-separated: a,b,c
+  // Support CSV-ish with Chinese punctuation: a，b、c
+  return value
+    .split(/[,，、]/)
+    .map((item) => stripWrappingQuotes(item))
+    .map((item) => item.trim())
+    .filter(Boolean)
+}
+
 function parseFrontmatter(raw: string): { meta: Frontmatter; body: string } {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
 
@@ -109,6 +149,9 @@ function parseFrontmatter(raw: string): { meta: Frontmatter; body: string } {
       .filter(Boolean)
       .map((line) => {
         const index = line.indexOf(':')
+        if (index === -1) {
+          return [line.trim(), '']
+        }
         const key = line.slice(0, index).trim()
         const value = line.slice(index + 1).trim()
         return [key, value]
@@ -143,10 +186,10 @@ function createStatusNote(slug: string, raw: string): StatusNote {
 
   return {
     slug,
-    title: meta.title ?? slug,
-    summary: meta.summary ?? '',
-    type: meta.type,
-    updatedAt: meta.updatedAt,
+    title: String(meta.title ?? slug),
+    summary: String(meta.summary ?? ''),
+    type: meta.type ? String(meta.type) : undefined,
+    updatedAt: meta.updatedAt ? stripWrappingQuotes(String(meta.updatedAt)) : undefined,
     items
   }
 }
@@ -215,6 +258,26 @@ const statusNotes = Object.entries(rawNoteModules)
     return createStatusNote(file, raw)
   })
 
+function normalizeDate(value: unknown) {
+  return stripWrappingQuotes(String(value ?? '')).trim()
+}
+
+function normalizeCategory(value: unknown) {
+  const category = stripWrappingQuotes(String(value ?? '')).trim()
+  if (!category) return ''
+
+  // Back-compat: accept short names produced by the daily writer.
+  if (category === 'AI') return 'AI相关'
+  if (category === 'Vue') return 'Vue相关'
+  if (category === '生活') return '生活趣事'
+
+  return category
+}
+
+function normalizeReadingTime(value: unknown) {
+  return stripWrappingQuotes(String(value ?? '')).trim()
+}
+
 const parsedPosts = Object.entries(rawModules)
   .map(([path, raw]) => {
     const file = path.split('/').pop()?.replace(/\.md$/, '') ?? ''
@@ -222,18 +285,23 @@ const parsedPosts = Object.entries(rawModules)
     const sections = createSections(body)
     const content = sections.flatMap((section) => section.paragraphs)
     const wordCount = body.replace(/\s+/g, '').length
-    const date = meta.date ?? ''
+    const date = normalizeDate(meta.date)
+
+    const rawTags = meta.tags ? String(meta.tags) : ''
+    const tags = rawTags ? parseTags(rawTags) : []
+
+    const category = normalizeCategory(meta.category)
 
     return {
       slug: file,
-      title: meta.title ?? file,
-      summary: meta.summary ?? '',
-      category: meta.category ?? '随记',
-      tags: meta.tags ? meta.tags.split(',').map((item) => item.trim()).filter(Boolean) : [],
+      title: stripWrappingQuotes(String(meta.title ?? file)),
+      summary: stripWrappingQuotes(String(meta.summary ?? '')),
+      category: category || '随记',
+      tags,
       date,
-      readingTime: meta.readingTime ?? '5 min',
-      featured: meta.featured === 'true',
-      cover: meta.cover ?? 'Post Cover',
+      readingTime: normalizeReadingTime(meta.readingTime) || '5 min',
+      featured: stripWrappingQuotes(String(meta.featured ?? 'false')) === 'true',
+      cover: meta.cover ? stripWrappingQuotes(String(meta.cover)) : 'Post Cover',
       content,
       sections,
       wordCount,
